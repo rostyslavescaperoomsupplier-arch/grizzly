@@ -226,11 +226,24 @@
       COLORS.forEach(function(o){var b=document.createElement('button');b.type='button';b.className='kswatch'+(ksel.color===o?' on':'');b.title=o;b.innerHTML='<span class="ksw-dot" style="background:'+HCOL[o]+'"></span><span class="ksw-l">'+o+'</span>';b.addEventListener('click',function(){ksel.color=o;kRender();kResult();});pal.appendChild(b);});
       r2.appendChild(pal); kForm.appendChild(r2);
     }
+    function shade(hex,amt){var n=parseInt(hex.slice(1),16);var r=Math.max(0,Math.min(255,(n>>16)+amt));var g=Math.max(0,Math.min(255,((n>>8)&255)+amt));var b=Math.max(0,Math.min(255,(n&255)+amt));return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);}
     function drawHair(){
       var hp=HAIR[ksel.style];
       if(!hp){ hair.innerHTML=''; ov.style.display='none'; return; }
       ov.style.display='';
-      hair.innerHTML='<path d="'+hp+'" fill="'+HCOL[ksel.color]+'" stroke="rgba(0,0,0,.28)" stroke-width="1.5"/>';
+      var base=HCOL[ksel.color], lite=shade(base,34), drk=shade(base,-30);
+      var defs='<defs><linearGradient id="hg" x1="0" y1="0" x2="0.2" y2="1">'
+        +'<stop offset="0" stop-color="'+lite+'"/><stop offset=".5" stop-color="'+base+'"/><stop offset="1" stop-color="'+drk+'"/></linearGradient>'
+        +'<clipPath id="hc"><path d="'+hp+'"/></clipPath>'
+        +'<filter id="hb" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="0.6"/></filter></defs>';
+      var strands='';
+      for(var i=0;i<30;i++){var x=62+i*3.9, w1=Math.sin(i*1.3)*4, w2=Math.sin(i*0.7+1)*5;
+        strands+='<path d="M'+x.toFixed(1)+',36 q'+w1.toFixed(1)+',32 '+w2.toFixed(1)+',64" stroke="'+lite+'" stroke-width="0.65" fill="none" opacity="'+(0.22+0.16*Math.abs(Math.sin(i))).toFixed(2)+'"/>';
+        strands+='<path d="M'+(x+1.6).toFixed(1)+',40 q'+(w1*0.8).toFixed(1)+',30 '+(w2*0.9).toFixed(1)+',58" stroke="'+drk+'" stroke-width="0.5" fill="none" opacity="0.2"/>';}
+      hair.innerHTML=defs
+        +'<path d="'+hp+'" fill="url(#hg)" filter="url(#hb)"/>'
+        +'<g clip-path="url(#hc)">'+strands+'</g>'
+        +'<path d="'+hp+'" fill="none" stroke="'+drk+'" stroke-width="0.9" opacity=".55"/>';
     }
     function kResult(){
       var src=photoFor(ksel.style);

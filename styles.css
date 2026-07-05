@@ -243,7 +243,11 @@ html[data-theme="light"] .ct-map iframe,html[data-theme="light"] .loc-map iframe
 .st-time{color:var(--mut);font-size:.9rem}
 .menu-cta{text-align:center;margin-top:34px}
 .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;max-width:900px;margin:0 auto}
-.tm-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px 16px;text-align:center}
+.tm-card{display:block;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px 16px;text-align:center;transition:.2s;cursor:pointer}
+.tm-card:hover{border-color:var(--ink);transform:translateY(-3px);box-shadow:0 14px 30px -18px var(--shadow)}
+.tm-card:hover .tm-ava.has-photo img{filter:grayscale(0) contrast(1.05)}
+.tm-go{display:block;margin-top:10px;color:var(--amber2);font-family:'Barlow Condensed';font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-size:.78rem;opacity:0;transition:.2s}
+.tm-card:hover .tm-go{opacity:1}
 .tm-ava{width:78px;height:78px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle at 40% 30%,var(--panel2),#0a0a0b);display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
 .tm-ava .paw{width:40px;height:40px}
 .tm-ava .emb{height:44px;opacity:.9}

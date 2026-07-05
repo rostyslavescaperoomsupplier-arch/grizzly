@@ -8,7 +8,7 @@ import json, os, re, glob, html, unicodedata
 from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VER = "12"  # cache-bust; bump after CSS/JS changes
+VER = "13"  # cache-bust; bump after CSS/JS changes
 
 BOOKSY_MAIN = "https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin"
 INSTAGRAM   = "https://www.instagram.com/grizzly_gorkiego_/"
@@ -146,11 +146,15 @@ def team_photo(slug, name):
     rel = f"assets/team/{slug}__{nslug(name)}.jpg"
     return rel if os.path.exists(os.path.join(HERE, rel)) else None
 
+def bslug(slug, name):
+    return f"{slug}-{nslug(name)}"
+
 def tm_card(slug, name, role):
     ph = team_photo(slug, name)
     ava = (f'<div class="tm-ava has-photo"><img loading="lazy" src="{ph}" alt="{esc(name)}"></div>'
            if ph else f'<div class="tm-ava">{emblem()}</div>')
-    return f'<div class="tm-card reveal">{ava}<h4>{esc(name)}</h4><span>{esc(role)}</span></div>'
+    return (f'<a class="tm-card reveal" href="barber-{bslug(slug, name)}.html">{ava}'
+            f'<h4>{esc(name)}</h4><span>{esc(role)}</span><span class="tm-go">{t("view_loc")} →</span></a>')
 
 PAW = ('<svg class="paw" viewBox="0 0 100 100" aria-hidden="true">'
        '<ellipse cx="50" cy="64" rx="24" ry="20"/>'
@@ -792,6 +796,58 @@ def build_location(l):
     return head(f"{l['name']} — Szczecin") + body
 
 # ---------------------------------------------------------------------------
+# BARBER PAGE
+# ---------------------------------------------------------------------------
+def build_barber(l, name, role):
+    ph = team_photo(l["slug"], name)
+    bg = ph or "assets/hero.jpg"
+    svc_rows = "".join(
+        f'<tr><td class="st-name">{esc(n)}</td><td class="st-price">{esc(p)}</td><td class="st-time">{esc(tm)}</td></tr>'
+        for (n, p, tm) in l["services"])
+    others = "".join(
+        f'<a href="barber-{bslug(l["slug"], nm)}.html">{esc(nm)}</a>'
+        for (nm, rl) in l["staff"] if nm != name)
+    others_html = (f'<div class="sib-strip reveal"><span>{esc(l["short"])}:</span> {others}</div>' if others else "")
+    body = f"""{header()}
+<main>
+<section class="loc-hero barber-hero">
+  <div class="hero-bg" style="background-image:url({bg})"></div>
+  <div class="hero-shade"></div>
+  <div class="wrap loc-hero-in">
+    <a class="back-link" href="lokal-{l['slug']}.html">← {esc(l['name'])}</a>
+    <p class="kicker">{esc(role)} · Grizzly {esc(l['short'])}</p>
+    <h1 class="hero-title">{esc(name)}</h1>
+    <p class="hero-sub">Barber w Grizzly Barber Shop — {esc(l['address'])}</p>
+    <div class="hero-cta">{book_btn(l, big=True)}
+      <a class="btn btn-ghost btn-lg" href="lokal-{l['slug']}.html">{t('view_loc')}</a>
+    </div>
+  </div>
+</section>
+
+<section class="info-bar"><div class="wrap info-in">
+  <div class="ib"><span data-i18n="staff_label">{ta('staff_label')}</span><b>{esc(name)} — {esc(role)}</b></div>
+  <div class="ib"><span data-i18n="addr_label">{ta('addr_label')}</span><b>{esc(l['address'])}</b></div>
+  <div class="ib"><span data-i18n="hours_label">{ta('hours_label')}</span><b>{esc(l['hours'])}</b></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="sec-head reveal"><h2 data-i18n="loc_menu_title">{ta('loc_menu_title')}</h2></div>
+  <table class="svc-table reveal">
+    <thead><tr><th data-i18n="svc_service">{ta('svc_service')}</th><th data-i18n="svc_price">{ta('svc_price')}</th><th data-i18n="svc_time">{ta('svc_time')}</th></tr></thead>
+    <tbody>{svc_rows}</tbody>
+  </table>
+  <div class="menu-cta reveal">{book_btn(l, big=True)}</div>
+</div></section>
+
+<section class="sec sec-alt"><div class="wrap">
+  <div class="loc-map reveal"><iframe loading="lazy" src="{esc(maps_embed(l['maps']))}" title="Mapa — {esc(l['short'])}"></iframe></div>
+  {others_html}
+</div></section>
+</main>
+{footer()}"""
+    return head(f"{name} — Grizzly Barber Shop {l['short']} · Szczecin") + body
+
+# ---------------------------------------------------------------------------
 # CSS
 # ---------------------------------------------------------------------------
 CSS = r"""
@@ -1039,7 +1095,11 @@ html[data-theme="light"] .ct-map iframe,html[data-theme="light"] .loc-map iframe
 .st-time{color:var(--mut);font-size:.9rem}
 .menu-cta{text-align:center;margin-top:34px}
 .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;max-width:900px;margin:0 auto}
-.tm-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px 16px;text-align:center}
+.tm-card{display:block;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px 16px;text-align:center;transition:.2s;cursor:pointer}
+.tm-card:hover{border-color:var(--ink);transform:translateY(-3px);box-shadow:0 14px 30px -18px var(--shadow)}
+.tm-card:hover .tm-ava.has-photo img{filter:grayscale(0) contrast(1.05)}
+.tm-go{display:block;margin-top:10px;color:var(--amber2);font-family:'Barlow Condensed';font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-size:.78rem;opacity:0;transition:.2s}
+.tm-card:hover .tm-go{opacity:1}
 .tm-ava{width:78px;height:78px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle at 40% 30%,var(--panel2),#0a0a0b);display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
 .tm-ava .paw{width:40px;height:40px}
 .tm-ava .emb{height:44px;opacity:.9}
@@ -1421,11 +1481,24 @@ APP_JS = r"""
       COLORS.forEach(function(o){var b=document.createElement('button');b.type='button';b.className='kswatch'+(ksel.color===o?' on':'');b.title=o;b.innerHTML='<span class="ksw-dot" style="background:'+HCOL[o]+'"></span><span class="ksw-l">'+o+'</span>';b.addEventListener('click',function(){ksel.color=o;kRender();kResult();});pal.appendChild(b);});
       r2.appendChild(pal); kForm.appendChild(r2);
     }
+    function shade(hex,amt){var n=parseInt(hex.slice(1),16);var r=Math.max(0,Math.min(255,(n>>16)+amt));var g=Math.max(0,Math.min(255,((n>>8)&255)+amt));var b=Math.max(0,Math.min(255,(n&255)+amt));return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);}
     function drawHair(){
       var hp=HAIR[ksel.style];
       if(!hp){ hair.innerHTML=''; ov.style.display='none'; return; }
       ov.style.display='';
-      hair.innerHTML='<path d="'+hp+'" fill="'+HCOL[ksel.color]+'" stroke="rgba(0,0,0,.28)" stroke-width="1.5"/>';
+      var base=HCOL[ksel.color], lite=shade(base,34), drk=shade(base,-30);
+      var defs='<defs><linearGradient id="hg" x1="0" y1="0" x2="0.2" y2="1">'
+        +'<stop offset="0" stop-color="'+lite+'"/><stop offset=".5" stop-color="'+base+'"/><stop offset="1" stop-color="'+drk+'"/></linearGradient>'
+        +'<clipPath id="hc"><path d="'+hp+'"/></clipPath>'
+        +'<filter id="hb" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="0.6"/></filter></defs>';
+      var strands='';
+      for(var i=0;i<30;i++){var x=62+i*3.9, w1=Math.sin(i*1.3)*4, w2=Math.sin(i*0.7+1)*5;
+        strands+='<path d="M'+x.toFixed(1)+',36 q'+w1.toFixed(1)+',32 '+w2.toFixed(1)+',64" stroke="'+lite+'" stroke-width="0.65" fill="none" opacity="'+(0.22+0.16*Math.abs(Math.sin(i))).toFixed(2)+'"/>';
+        strands+='<path d="M'+(x+1.6).toFixed(1)+',40 q'+(w1*0.8).toFixed(1)+',30 '+(w2*0.9).toFixed(1)+',58" stroke="'+drk+'" stroke-width="0.5" fill="none" opacity="0.2"/>';}
+      hair.innerHTML=defs
+        +'<path d="'+hp+'" fill="url(#hg)" filter="url(#hb)"/>'
+        +'<g clip-path="url(#hc)">'+strands+'</g>'
+        +'<path d="'+hp+'" fill="none" stroke="'+drk+'" stroke-width="0.9" opacity=".55"/>';
     }
     function kResult(){
       var src=photoFor(ksel.style);
@@ -1597,9 +1670,13 @@ def main():
     w("translations.js", "window.I18N=" + json.dumps(I18N, ensure_ascii=False) +
       ";\nwindow.GRZ=" + json.dumps(js_data(), ensure_ascii=False) + ";")
     w("index.html", build_index())
+    nbarber = 0
     for l in LOCATIONS:
         w(f"lokal-{l['slug']}.html", build_location(l))
-    print("done —", 1 + len(LOCATIONS), "html pages")
+        for (nm, role) in l["staff"]:
+            w(f"barber-{bslug(l['slug'], nm)}.html", build_barber(l, nm, role))
+            nbarber += 1
+    print("done —", 1 + len(LOCATIONS) + nbarber, "html pages (", nbarber, "barbers )")
 
 if __name__ == "__main__":
     main()
