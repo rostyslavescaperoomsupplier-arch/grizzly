@@ -26,16 +26,16 @@ function place(overlay, pts, video){
   const faceH=Math.hypot(chin.x-top.x, chin.y-top.y);
   const roll=Math.atan2(eL.y-eR.y, eL.x-eR.x);          // radians (mirrored eyes)
   const mul=(window.__hairMul||1);
-  const hairW=faceW*2.12*mul;
-  const hairH=hairW/1.2;                                // svg viewBox 120x100
+  const hairW=faceW*2.08*mul;
+  const hairH=hairW*200/240;                             // svg viewBox 240x200
   // hairline point (slightly above forehead landmark 10), centred on forehead
-  const hlX=top.x, hlY=top.y - faceH*0.05;
-  // the hair path's forehead edge sits ~80% down the svg box → align it to the hairline
+  const hlX=top.x, hlY=top.y - faceH*0.03;
+  // in the svg the hairline sits at y=98/200 = 0.49 of the box height → align it there
   overlay.style.width=hairW+'px';
   overlay.style.height=hairH+'px';
   overlay.style.left=(hlX-hairW/2)+'px';
-  overlay.style.top=(hlY-hairH*0.80)+'px';
-  overlay.style.transformOrigin='50% 80%';              // pivot at the hairline
+  overlay.style.top=(hlY-hairH*0.49)+'px';
+  overlay.style.transformOrigin='50% 49%';              // pivot at the hairline
   overlay.style.transform='rotate('+(roll*180/Math.PI)+'deg)';
 }
 

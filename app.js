@@ -192,22 +192,21 @@
     var HCOL={'Naturalny':'#22221e','Brąz':'#4a3324','Rozjaśnienie':'#c2a877','Platyna / siwy':'#d3d0c8','Cover':'#3b3b37'};
     var TINT={'Naturalny':'grayscale(1) contrast(1.04)','Brąz':'sepia(.55) saturate(1.5) brightness(.92) contrast(1.02)','Rozjaśnienie':'grayscale(.1) sepia(.28) brightness(1.26) contrast(.95)','Platyna / siwy':'grayscale(1) brightness(1.32) contrast(.9)','Cover':'grayscale(1) brightness(.72) contrast(1.12)'};
     var HAIR={
-     'Fade':'M74,114 C68,74 94,50 120,50 C146,50 172,74 166,114 C160,88 150,72 120,72 C90,72 80,88 74,114 Z',
-     'Undercut':'M84,88 C86,52 154,52 156,88 C150,62 90,62 84,88 Z',
-     'Pompadour':'M80,84 C78,42 116,28 134,42 C154,44 162,66 158,86 C150,58 96,58 80,84 Z',
-     'Tekstura':'M76,90 l7,-16 8,13 9,-19 8,17 10,-21 10,19 9,-15 7,13 5,9 C150,60 92,60 76,90 Z',
-     'Crew cut':'M78,74 C80,52 100,46 120,46 C140,46 160,52 162,74 C150,60 90,60 78,74 Z',
-     'Grzywka':'M74,110 C72,70 96,50 120,50 C144,50 168,70 166,110 C160,84 150,72 120,72 C104,72 92,78 84,88 L90,102 96,88 102,102 108,88 114,102 120,88 126,100 Z',
-     'Zaczesane do tyłu':'M80,80 C78,50 116,42 130,52 C150,54 160,72 155,92 C150,66 96,64 80,80 Z',
-     'Przedziałek':'M76,98 C74,64 98,50 120,50 C144,50 168,66 166,100 C160,78 150,66 121,66 L118,58 115,66 C104,68 84,78 76,98 Z',
-     'Loki':'M74,94 q2,-13 12,-14 q3,-11 15,-9 q6,-9 19,-6 q9,-4 18,3 q12,0 15,12 q7,4 5,16 C150,64 92,64 74,94 Z',
-     'Irokez':'M109,40 C107,32 133,32 131,40 L128,90 112,90 Z',
-     'Jeżyk':'M82,72 C84,56 100,50 120,50 C140,50 156,56 158,72 C150,62 90,62 82,72 Z',
-     'Kok':'M80,84 C80,54 104,48 120,48 C138,48 158,58 156,86 C150,62 96,62 80,84 Z',
+     'Fade':'M60,132 C48,70 84,30 120,30 C156,30 192,70 180,132 C176,110 168,106 158,110 C146,116 136,100 120,98 C104,100 94,116 82,110 C72,106 64,110 60,132 Z',
+     'Undercut':'M78,138 C68,58 88,26 120,26 C152,26 172,58 162,138 C158,110 150,110 120,104 C90,110 82,110 78,138 Z',
+     'Pompadour':'M58,130 C42,44 80,14 118,18 C160,14 196,54 182,130 C178,108 170,104 160,108 C146,114 136,100 120,98 C104,100 92,116 80,108 C70,104 62,108 58,130 Z',
+     'Zaczesane do tyłu':'M58,130 C46,52 78,18 116,20 C158,18 194,56 182,130 C178,108 170,104 160,108 C148,114 136,102 120,100 C104,102 92,114 80,108 C70,104 62,108 58,130 Z',
+     'Tekstura':'M58,130 C50,72 46,56 60,44 q10,-18 24,-12 q10,-16 26,-12 q12,-12 28,-6 q14,-4 24,8 q12,8 8,24 C182,108 172,104 160,108 C146,114 136,100 120,98 C104,100 94,116 80,108 C70,104 62,108 58,130 Z',
+     'Crew cut':'M64,128 C56,74 88,38 120,38 C152,38 184,74 176,128 C172,112 164,108 156,112 C144,118 134,104 120,102 C106,104 96,118 84,112 C76,108 68,112 64,128 Z',
+     'Grzywka':'M58,130 C48,68 84,30 120,30 C156,30 192,68 182,130 C178,110 170,106 160,110 C152,120 144,114 136,108 L132,128 125,110 118,128 112,110 105,126 98,110 C90,116 80,110 74,110 C66,108 62,110 58,130 Z',
+     'Przedziałek':'M60,132 C48,70 84,30 120,30 C156,30 192,70 180,132 C176,110 168,106 158,110 C146,116 136,100 122,98 L119,86 116,98 C102,100 92,116 82,110 C72,106 64,110 60,132 Z',
+     'Loki':'M58,132 C54,104 42,96 54,80 q8,-18 24,-15 q7,-16 24,-13 q12,-13 27,-8 q16,-6 27,6 q15,3 17,21 q11,12 6,30 C180,110 170,106 158,110 C146,116 136,100 120,98 C104,100 92,116 80,110 C68,106 60,112 58,132 Z',
+     'Irokez':'M102,134 C98,58 106,24 120,24 C134,24 142,58 138,134 C134,112 128,110 120,108 C112,110 106,112 102,134 Z',
+     'Jeżyk':'M66,126 C58,80 90,44 120,44 C150,44 182,80 174,126 C170,112 162,108 154,112 C142,118 132,106 120,104 C108,106 98,118 86,112 C78,108 70,112 66,126 Z',
+     'Kok':'M64,128 C56,72 88,36 120,36 C152,36 184,72 176,128 C172,110 164,106 156,110 C144,116 134,102 120,100 C106,102 96,116 84,110 C76,106 68,110 64,128 Z',
      'Na łyso':''
     };
-    var PHOTO={'Loki':'assets/style/dlugie_nb.jpg','Kok':'assets/style/dlugie_nb.jpg','Na łyso':'assets/style/lyso_nb.jpg','Pompadour':'assets/style/srednie_nb.jpg','Zaczesane do tyłu':'assets/style/srednie_nb.jpg','Tekstura':'assets/style/srednie_nb.jpg','Grzywka':'assets/style/srednie_nb.jpg','Przedziałek':'assets/style/srednie_nb.jpg'};
-    function photoFor(st){return PHOTO[st]||'assets/style/krotkie_nb.jpg';}
+    var MODEL='assets/style/model.jpg';
     var ksel={style:'Fade',color:'Naturalny'};
     var vid=document.getElementById('krVideo'), kimg=document.getElementById('krImg'),
         ov=document.getElementById('krOverlay'), hair=document.getElementById('krHair'),
@@ -237,17 +236,15 @@
         +'<clipPath id="hc"><path d="'+hp+'"/></clipPath>'
         +'<filter id="hb" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="0.6"/></filter></defs>';
       var strands='';
-      for(var i=0;i<30;i++){var x=62+i*3.9, w1=Math.sin(i*1.3)*4, w2=Math.sin(i*0.7+1)*5;
-        strands+='<path d="M'+x.toFixed(1)+',36 q'+w1.toFixed(1)+',32 '+w2.toFixed(1)+',64" stroke="'+lite+'" stroke-width="0.65" fill="none" opacity="'+(0.22+0.16*Math.abs(Math.sin(i))).toFixed(2)+'"/>';
-        strands+='<path d="M'+(x+1.6).toFixed(1)+',40 q'+(w1*0.8).toFixed(1)+',30 '+(w2*0.9).toFixed(1)+',58" stroke="'+drk+'" stroke-width="0.5" fill="none" opacity="0.2"/>';}
+      for(var i=0;i<26;i++){var x=60+i*4.6, w1=Math.sin(i*1.3)*5, w2=Math.sin(i*0.7+1)*6;
+        strands+='<path d="M'+x.toFixed(1)+',34 q'+w1.toFixed(1)+',44 '+w2.toFixed(1)+',88" stroke="'+lite+'" stroke-width="0.8" fill="none" opacity="'+(0.18+0.14*Math.abs(Math.sin(i))).toFixed(2)+'"/>';}
       hair.innerHTML=defs
         +'<path d="'+hp+'" fill="url(#hg)" filter="url(#hb)"/>'
         +'<g clip-path="url(#hc)">'+strands+'</g>'
-        +'<path d="'+hp+'" fill="none" stroke="'+drk+'" stroke-width="0.9" opacity=".55"/>';
+        +'<path d="'+hp+'" fill="none" stroke="'+drk+'" stroke-width="0.9" opacity=".5"/>';
     }
     function kResult(){
-      var src=photoFor(ksel.style);
-      if(kimg.getAttribute('src')!==src) kimg.src=src;
+      if(kimg.getAttribute('src')!==MODEL) kimg.src=MODEL;
       kimg.style.filter=TINT[ksel.color]||'grayscale(1)';
       drawHair();
       var lyso=ksel.style==='Na łyso', svc=[],price=0;
