@@ -8,7 +8,7 @@ import json, os, re, glob, html, unicodedata
 from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VER = "17"  # cache-bust; bump after CSS/JS changes
+VER = "18"  # cache-bust; bump after CSS/JS changes
 
 BOOKSY_MAIN = "https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin"
 INSTAGRAM   = "https://www.instagram.com/grizzly_gorkiego_/"
@@ -208,7 +208,7 @@ I18N = {
   "svc_service":"Usługa","svc_price":"Cena","svc_time":"Czas","loc_menu_title":"Cennik","loc_team_title":"Barberzy",
   "modal_title":"Gdzie chcesz się umówić?","modal_sub":"Wybierz lokal — przekierujemy Cię do rezerwacji.",
   "map_label":"Mapa","new_loc":"Nowy lokal",
-  "footer_tag":"Męski fach, niedźwiedzia moc.","footer_rights":"Wszystkie prawa zastrzeżone.",
+  "footer_tag":"Męski fach, niedźwiedzia moc.","footer_rights":"Wszystkie prawa zastrzeżone.","share_label":"Udostępnij","copied":"Skopiowano!",
  },
  "uk": {
   "nav_lokale":"Локації","nav_barberzy":"Барбери","nav_uslugi":"Прайс","nav_kalk":"Калькулятор","nav_onas":"Про нас",
@@ -251,7 +251,7 @@ I18N = {
   "svc_service":"Послуга","svc_price":"Ціна","svc_time":"Час","loc_menu_title":"Прайс","loc_team_title":"Барбери",
   "modal_title":"Де хочеш записатись?","modal_sub":"Обери локацію — перекинемо тебе на бронювання.",
   "map_label":"Карта","new_loc":"Нова локація",
-  "footer_tag":"Чоловіче ремесло, ведмежа сила.","footer_rights":"Усі права захищені.",
+  "footer_tag":"Чоловіче ремесло, ведмежа сила.","footer_rights":"Усі права захищені.","share_label":"Поділитися","copied":"Скопійовано!",
  },
  "ru": {
   "nav_lokale":"Локации","nav_barberzy":"Барберы","nav_uslugi":"Прайс","nav_kalk":"Калькулятор","nav_onas":"О нас",
@@ -294,7 +294,7 @@ I18N = {
   "svc_service":"Услуга","svc_price":"Цена","svc_time":"Время","loc_menu_title":"Прайс","loc_team_title":"Барберы",
   "modal_title":"Где хочешь записаться?","modal_sub":"Выбери локацию — отправим тебя на бронь.",
   "map_label":"Карта","new_loc":"Новая локация",
-  "footer_tag":"Мужское ремесло, медвежья сила.","footer_rights":"Все права защищены.",
+  "footer_tag":"Мужское ремесло, медвежья сила.","footer_rights":"Все права защищены.","share_label":"Поделиться","copied":"Скопировано!",
  },
  "en": {
   "nav_lokale":"Locations","nav_barberzy":"Barbers","nav_uslugi":"Prices","nav_kalk":"Calculator","nav_onas":"About",
@@ -337,7 +337,7 @@ I18N = {
   "svc_service":"Service","svc_price":"Price","svc_time":"Time","loc_menu_title":"Price list","loc_team_title":"Barbers",
   "modal_title":"Where do you want to book?","modal_sub":"Pick a shop — we'll send you to booking.",
   "map_label":"Map","new_loc":"New shop",
-  "footer_tag":"A man's craft, a bear's strength.","footer_rights":"All rights reserved.",
+  "footer_tag":"A man's craft, a bear's strength.","footer_rights":"All rights reserved.","share_label":"Share","copied":"Copied!",
  },
 }
 
@@ -422,6 +422,14 @@ def footer(rel=""):
     <a href="{esc(INSTAGRAM)}" target="_blank" rel="noopener">Instagram</a>
     <a href="{esc(WHATSAPP)}" target="_blank" rel="noopener">WhatsApp</a>
   </div>
+</div>
+<div class="wrap foot-share">
+  <span data-i18n="share_label">{ta('share_label')}</span>
+  <a class="sh" data-sh="fb" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M13 22v-8h2.7l.4-3H13V9.2c0-.9.3-1.5 1.6-1.5H16V5.1C15.7 5 14.8 5 13.8 5 11.6 5 10 6.3 10 8.9V11H7.5v3H10v8z"/></svg></a>
+  <a class="sh" data-sh="wa" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3zm4.9 12.4c-.2.6-1.1 1.1-1.6 1.1-.4 0-1 .1-3.1-.8-2.6-1.2-4.3-3.9-4.4-4.1-.1-.2-1-1.3-1-2.5s.6-1.8.9-2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.4l.8 1.9c0 .2.1.3 0 .5l-.4.5c-.2.2-.3.4-.1.6.1.3.7 1.1 1.4 1.7.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1l.6-.7c.2-.2.4-.2.6-.1l1.7.8c.3.2.4.2.5.4.1.1.1.6-.1 1.1z"/></svg></a>
+  <a class="sh" data-sh="tg" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.5 4.3 2.9 11.5c-.9.3-.9 1.3 0 1.6l4.6 1.4 1.7 5.4c.2.5.5.6.9.3l2.6-2 4.9 3.6c.5.3 1 .1 1.1-.5l3-14.3c.2-.7-.4-1.2-1.2-.9zM9.7 14.6l-.3 3.7-1.2-4 8.8-5.4z"/></svg></a>
+  <a class="sh" data-sh="x" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.5 3h3l-6.6 7.5L21.8 21h-6l-4.3-5.7L6.5 21H3.4l7.1-8.1L2.7 3h6.1l3.9 5.2zm-1.1 16h1.7L7.7 4.7H5.9z"/></svg></a>
+  <button class="sh" id="shCopy" type="button" aria-label="Kopiuj link"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9.5 13a3.2 3.2 0 0 0 4.6.2l2.6-2.6a3.2 3.2 0 0 0-4.5-4.5l-1 1M14.5 11a3.2 3.2 0 0 0-4.6-.2l-2.6 2.6a3.2 3.2 0 0 0 4.5 4.5l1-1"/></svg></button>
 </div>
 <div class="wrap foot-bar">© 2026 Grizzly Barber Shop · Szczecin · <span data-i18n="footer_rights">{ta('footer_rights')}</span></div>
 </footer>
@@ -1101,6 +1109,13 @@ html[data-theme="light"] .site-foot{background:var(--panel2)}
 .foot-locs a:hover{color:var(--amber2)}
 .foot-social{display:flex;gap:16px}
 .foot-social a{color:var(--amber2);font-family:'Barlow Condensed';font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.foot-share{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;padding:4px 22px 26px;border-top:1px solid var(--line);margin-top:4px}
+.foot-share>span{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;color:var(--mut)}
+.sh{width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;color:var(--ink);background:none;cursor:pointer;transition:.16s;padding:0}
+.sh:hover{border-color:var(--amber2);color:var(--amber2);transform:translateY(-2px)}
+.sh svg{width:19px;height:19px}
+.sh-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 18px;border-radius:5px;font-family:'Barlow Condensed';font-weight:600;letter-spacing:.03em;opacity:0;pointer-events:none;transition:.25s;z-index:120}
+.sh-toast.show{opacity:1}
 .foot-bar{border-top:1px solid var(--line);padding:18px 22px;color:var(--mut);font-size:.85rem;text-align:center}
 
 /* modal */
@@ -1549,6 +1564,24 @@ APP_JS = r"""
   var start=saved||'pl';   // Polish is the default language
   buildCalc();
   setLang(start);
+
+  /* ---------- social share ---------- */
+  (function(){
+    var url=encodeURIComponent(location.href.split('#')[0]), txt=encodeURIComponent('Grizzly Barber Shop — Szczecin');
+    var map={fb:'https://www.facebook.com/sharer/sharer.php?u='+url,
+             wa:'https://wa.me/?text='+txt+'%20'+url,
+             tg:'https://t.me/share/url?url='+url+'&text='+txt,
+             x:'https://twitter.com/intent/tweet?url='+url+'&text='+txt};
+    document.querySelectorAll('[data-sh]').forEach(function(a){var k=a.getAttribute('data-sh');if(map[k])a.setAttribute('href',map[k]);});
+    var cp=document.getElementById('shCopy');
+    if(cp)cp.addEventListener('click',function(){
+      var d=cur(), t=document.getElementById('shToast');
+      function toast(){ if(!t){t=document.createElement('div');t.id='shToast';t.className='sh-toast';document.body.appendChild(t);} t.textContent=d.copied||'Skopiowano!'; t.classList.add('show'); setTimeout(function(){t.classList.remove('show');},1600); }
+      var link=location.href.split('#')[0];
+      if(navigator.share){navigator.share({title:'Grizzly Barber Shop',url:link}).catch(function(){});return;}
+      if(navigator.clipboard){navigator.clipboard.writeText(link).then(toast,toast);}else{toast();}
+    });
+  })();
 })();
 """
 

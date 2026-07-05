@@ -318,4 +318,22 @@
   var start=saved||'pl';   // Polish is the default language
   buildCalc();
   setLang(start);
+
+  /* ---------- social share ---------- */
+  (function(){
+    var url=encodeURIComponent(location.href.split('#')[0]), txt=encodeURIComponent('Grizzly Barber Shop — Szczecin');
+    var map={fb:'https://www.facebook.com/sharer/sharer.php?u='+url,
+             wa:'https://wa.me/?text='+txt+'%20'+url,
+             tg:'https://t.me/share/url?url='+url+'&text='+txt,
+             x:'https://twitter.com/intent/tweet?url='+url+'&text='+txt};
+    document.querySelectorAll('[data-sh]').forEach(function(a){var k=a.getAttribute('data-sh');if(map[k])a.setAttribute('href',map[k]);});
+    var cp=document.getElementById('shCopy');
+    if(cp)cp.addEventListener('click',function(){
+      var d=cur(), t=document.getElementById('shToast');
+      function toast(){ if(!t){t=document.createElement('div');t.id='shToast';t.className='sh-toast';document.body.appendChild(t);} t.textContent=d.copied||'Skopiowano!'; t.classList.add('show'); setTimeout(function(){t.classList.remove('show');},1600); }
+      var link=location.href.split('#')[0];
+      if(navigator.share){navigator.share({title:'Grizzly Barber Shop',url:link}).catch(function(){});return;}
+      if(navigator.clipboard){navigator.clipboard.writeText(link).then(toast,toast);}else{toast();}
+    });
+  })();
 })();
