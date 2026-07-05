@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pl" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grizzly Barber Shop — Szczecin · 4 lokale</title>
+<meta name="description" content="Grizzly Barber Shop — męski barbershop w Szczecinie. 4 lokale: Piastów, Niebuszewo, Mickiewicza, Gorkiego. Rezerwacja online.">
+<meta property="og:title" content="Grizzly Barber Shop — Szczecin · 4 lokale">
+<meta property="og:description" content="Męski barbershop w Szczecinie — 4 lokale, jedno rzemiosło.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=3">
+<link rel="icon" href="favicon.svg">
+</head>
+<body>
+<script>var r=document.documentElement;r.classList.remove('no-js');r.classList.add('js');try{var th=localStorage.getItem('grz_theme');if(th)r.setAttribute('data-theme',th);}catch(e){}</script>
+<div id="progress"></div>
+<header class="site-head">
+<div class="wrap head-in">
+  <a class="brand" href="index.html"><svg class="paw" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="64" rx="24" ry="20"/><ellipse cx="24" cy="44" rx="8" ry="11"/><ellipse cx="41" cy="32" rx="8.5" ry="12.5"/><ellipse cx="59" cy="32" rx="8.5" ry="12.5"/><ellipse cx="76" cy="44" rx="8" ry="11"/></svg><span class="brand-word">GRIZZLY</span></a>
+  <nav class="nav"><a href="index.html#lokale"><span data-i18n="nav_lokale">Lokale</span></a><a href="index.html#uslugi"><span data-i18n="nav_uslugi">Cennik</span></a><a href="index.html#opinie"><span data-i18n="nav_opinie">Opinie</span></a><a href="index.html#galeria"><span data-i18n="nav_galeria">Galeria</span></a><a href="index.html#kontakt"><span data-i18n="nav_kontakt">Kontakt</span></a></nav>
+  <div class="head-right">
+    <button class="theme-btn" id="themeBtn" aria-label="motyw">◐</button>
+    <div class="lang" id="lang">
+      <button data-l="pl">PL</button><button data-l="uk">UA</button><button data-l="ru">RU</button><button data-l="en">EN</button>
+    </div>
+    <button class="btn btn-amber head-cta js-book"><span data-i18n="btn_book">Rezerwuj</span></button>
+    <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+</div>
+<div class="drawer" id="drawer"><nav><a href="index.html#lokale"><span data-i18n="nav_lokale">Lokale</span></a><a href="index.html#uslugi"><span data-i18n="nav_uslugi">Cennik</span></a><a href="index.html#kalkulator"><span data-i18n="nav_kalk">Kalkulator</span></a><a href="index.html#opinie"><span data-i18n="nav_opinie">Opinie</span></a><a href="index.html#galeria"><span data-i18n="nav_galeria">Galeria</span></a><a href="index.html#faq"><span data-i18n="nav_faq">FAQ</span></a><a href="index.html#kontakt"><span data-i18n="nav_kontakt">Kontakt</span></a>
+  <button class="btn btn-amber js-book"><span data-i18n="btn_book">Rezerwuj</span></button>
+</nav></div>
+</header>
+<div class="promo" id="promo"><div class="wrap promo-in">
+  <span data-i18n="promo_text">Program lojalnościowy — zbieraj wizyty i łap rabaty w każdym lokalu.</span>
+  <button class="promo-cta js-book"><span data-i18n="promo_cta">Rezerwuj</span></button>
+  <button class="promo-x" id="promoX" aria-label="close">×</button>
+</div></div>
+<main>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-in">
+    <p class="kicker" data-i18n="hero_kicker">Szczecin · 4 lokale</p>
+    <h1 class="hero-title">GRIZZLY BARBER SHOP</h1>
+    <p class="hero-sub" data-i18n="hero_sub">Męski fach, niedźwiedzia moc. Cztery lokale w Szczecinie — jedno rzemiosło.</p>
+    <div class="hero-cta">
+      <button class="btn btn-amber btn-lg js-book" data-i18n="hero_cta1">Rezerwuj wizytę</button>
+      <button class="btn btn-ghost btn-lg" id="finderBtn" data-i18n="hero_cta2">Znajdź najbliższy lokal</button>
+    </div>
+    <p class="finder-msg" id="finderMsg"></p>
+    <div class="hero-stats">
+      <div><b>4.9</b><span data-i18n="hero_stat_r">średnia ocena</span></div>
+      <div><b data-count="2365">0</b><span data-i18n="hero_stat_v">opinii</span></div>
+      <div><b data-count="4">0</b><span data-i18n="hero_stat_l">lokale</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="lokale" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 data-i18n="lokale_title">Nasze lokale</h2><p data-i18n="lokale_sub">Wybierz najbliższy Grizzly w Szczecinie.</p></div>
+    <div class="loc-grid"><a class="loc-card reveal" data-slug="piastow" href="lokal-piastow.html">
+  <span class="lc-flag">★</span><span class="open-badge" data-open="piastow"></span>
+  <h3>Piastów</h3>
+  <p class="lc-addr">aleja Piastów 10/1, 70-331 Szczecin</p>
+  <span class="lc-rate"><span class="stars">★</span> <b>4.9</b> · 1303 <span data-i18n="reviews_word">opinii</span></span>
+  <span class="lc-dist" data-dist="piastow"></span>
+  <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+</a><a class="loc-card reveal" data-slug="niebuszewo" href="lokal-niebuszewo.html">
+  <span class="open-badge" data-open="niebuszewo"></span>
+  <h3>Niebuszewo</h3>
+  <p class="lc-addr">Księcia Warcisława I 27b, 71-667 Szczecin</p>
+  <span class="lc-rate"><span class="stars">★</span> <b>5.0</b> · 655 <span data-i18n="reviews_word">opinii</span></span>
+  <span class="lc-dist" data-dist="niebuszewo"></span>
+  <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+</a><a class="loc-card reveal" data-slug="mickiewicza" href="lokal-mickiewicza.html">
+  <span class="open-badge" data-open="mickiewicza"></span>
+  <h3>Mickiewicza</h3>
+  <p class="lc-addr">Adama Mickiewicza 36A, 70-385 Szczecin</p>
+  <span class="lc-rate"><span class="stars">★</span> <b>4.9</b> · 407 <span data-i18n="reviews_word">opinii</span></span>
+  <span class="lc-dist" data-dist="mickiewicza"></span>
+  <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+</a><a class="loc-card reveal" data-slug="gorkiego" href="lokal-gorkiego.html">
+  <span class="open-badge" data-open="gorkiego"></span>
+  <h3>Gorkiego</h3>
+  <p class="lc-addr">Maksyma Gorkiego 5, 70-390 Szczecin</p>
+  <span class="lc-rate lc-new"><span data-i18n="new_loc">Nowy lokal</span></span>
+  <span class="lc-dist" data-dist="gorkiego"></span>
+  <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+</a></div>
+  </div>
+</section>
+
+<section id="uslugi" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 data-i18n="uslugi_title">Cennik</h2><p data-i18n="uslugi_sub">Ceny różnią się między lokalami — wybierz zakładkę.</p></div>
+    <div class="tabs"><button class="tab on" data-tab="piastow">Piastów</button><button class="tab " data-tab="niebuszewo">Niebuszewo</button><button class="tab " data-tab="mickiewicza">Mickiewicza</button><button class="tab " data-tab="gorkiego">Gorkiego</button></div>
+    <div class="tab-panels"><div class="tab-panel on" data-panel="piastow"><div class="svc-grid"><div class="svc"><div class="svc-name">Strzyżenie (mycie + masaż + stylizacja)</div><div class="svc-meta"><span class="svc-price">100 zł</span><span class="svc-time">1 g</span></div></div><div class="svc"><div class="svc-name">COMBO — strzyżenie + broda brzytwą</div><div class="svc-meta"><span class="svc-price">150 zł</span><span class="svc-time">1 g 30 min</span></div></div><div class="svc"><div class="svc-name">Strzyżenie</div><div class="svc-meta"><span class="svc-price">80 zł</span><span class="svc-time">1 g 30 min</span></div></div><div class="svc"><div class="svc-name">Broda</div><div class="svc-meta"><span class="svc-price">70–90 zł</span><span class="svc-time">40–50 min</span></div></div><div class="svc"><div class="svc-name">Głowa na łyso + broda</div><div class="svc-meta"><span class="svc-price">100–120 zł</span><span class="svc-time">1 g 10 min</span></div></div><div class="svc"><div class="svc-name">COVER — koloryzacja / kamuflaż</div><div class="svc-meta"><span class="svc-price">60–70 zł</span><span class="svc-time">30 min</span></div></div><div class="svc"><div class="svc-name">Strzyżenie długich włosów (15 cm+)</div><div class="svc-meta"><span class="svc-price">120 zł</span><span class="svc-time">1 g 10 min</span></div></div><div class="svc"><div class="svc-name">Rozjaśnianie</div><div class="svc-meta"><span class="svc-price">od 200 zł</span><span class="svc-time">2 g</span></div></div></div></div><div class="tab-panel " data-panel="niebuszewo"><div class="svc-grid"><div class="svc"><div class="svc-name">Grizzly Cut — strzyżenie męskie</div><div class="svc-meta"><span class="svc-price">80–90 zł</span><span class="svc-time">50 min – 1 g 20 min</span></div></div><div class="svc"><div class="svc-name">Broda Bestii — stylizacja brody</div><div class="svc-meta"><span class="svc-price">70–80 zł</span><span class="svc-time">40 min – 1 g</span></div></div><div class="svc"><div class="svc-name">Full Grizzly — strzyżenie + broda</div><div class="svc-meta"><span class="svc-price">130–140 zł</span><span class="svc-time">1 g 10 min – 1 g 50 min</span></div></div><div class="svc"><div class="svc-name">Łysa Moc — na łyso + broda</div><div class="svc-meta"><span class="svc-price">120 zł</span><span class="svc-time">1 g – 1 g 30 min</span></div></div><div class="svc"><div class="svc-name">Maska Niedźwiedzia — kamuflaż brody</div><div class="svc-meta"><span class="svc-price">70 zł</span><span class="svc-time">30 min</span></div></div><div class="svc"><div class="svc-name">Grizzly Total Look — pełne combo</div><div class="svc-meta"><span class="svc-price">200 zł</span><span class="svc-time">1 g 40 min – 2 g 15 min</span></div></div><div class="svc"><div class="svc-name">HOT WAX — depilacja woskiem</div><div class="svc-meta"><span class="svc-price">30 zł</span><span class="svc-time">15–20 min</span></div></div><div class="svc"><div class="svc-name">Kompleksowa pielęgnacja twarzy</div><div class="svc-meta"><span class="svc-price">50 zł</span><span class="svc-time">30 min</span></div></div><div class="svc"><div class="svc-name">Strzyżenie długich włosów</div><div class="svc-meta"><span class="svc-price">120 zł</span><span class="svc-time">1 g</span></div></div></div></div><div class="tab-panel " data-panel="mickiewicza"><div class="svc-grid"><div class="svc"><div class="svc-name">Grizzly Cut — strzyżenie</div><div class="svc-meta"><span class="svc-price">90–100 zł</span><span class="svc-time">45–60 min</span></div></div><div class="svc"><div class="svc-name">Broda Bestii — stylizacja brody</div><div class="svc-meta"><span class="svc-price">80–90 zł</span><span class="svc-time">45–50 min</span></div></div><div class="svc"><div class="svc-name">Łysa Moc — na łyso + broda</div><div class="svc-meta"><span class="svc-price">120–130 zł</span><span class="svc-time">1 g 10 min</span></div></div><div class="svc"><div class="svc-name">Full Grizzly — strzyżenie + broda</div><div class="svc-meta"><span class="svc-price">140–150 zł</span><span class="svc-time">1 g – 1 g 30 min</span></div></div><div class="svc"><div class="svc-name">Maska Niedźwiedzia — kamuflaż brody</div><div class="svc-meta"><span class="svc-price">70 zł</span><span class="svc-time">30 min</span></div></div><div class="svc"><div class="svc-name">Strzyżenie Junior</div><div class="svc-meta"><span class="svc-price">60 zł</span><span class="svc-time">1 g</span></div></div><div class="svc"><div class="svc-name">COMBO Junior — strzyżenie + broda</div><div class="svc-meta"><span class="svc-price">110 zł</span><span class="svc-time">1 g 30 min</span></div></div></div></div><div class="tab-panel " data-panel="gorkiego"><div class="svc-grid"><div class="svc"><div class="svc-name">Grizzly Cut — strzyżenie męskie</div><div class="svc-meta"><span class="svc-price">od 90 zł</span><span class="svc-time">≈ 1 g</span></div></div><div class="svc"><div class="svc-name">Broda Bestii — stylizacja brody</div><div class="svc-meta"><span class="svc-price">od 80 zł</span><span class="svc-time">≈ 45 min</span></div></div><div class="svc"><div class="svc-name">Full Grizzly — strzyżenie + broda</div><div class="svc-meta"><span class="svc-price">od 140 zł</span><span class="svc-time">≈ 1 g 30 min</span></div></div><div class="svc"><div class="svc-name">Łysa Moc — na łyso + broda</div><div class="svc-meta"><span class="svc-price">od 120 zł</span><span class="svc-time">≈ 1 g</span></div></div><div class="svc"><div class="svc-name">HOT WAX — depilacja woskiem</div><div class="svc-meta"><span class="svc-price">od 30 zł</span><span class="svc-time">15–20 min</span></div></div><div class="svc"><div class="svc-name">Koloryzacja / cover</div><div class="svc-meta"><span class="svc-price">od 70 zł</span><span class="svc-time">30 min</span></div></div></div></div></div>
+  </div>
+</section>
+
+<section id="kalkulator" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 data-i18n="kalk_title">Kalkulator wizyty</h2><p data-i18n="kalk_sub">Zaznacz usługi i policz orientacyjny koszt oraz czas.</p></div>
+    <div class="calc reveal">
+      <div class="calc-top">
+        <label data-i18n="kalk_pick">Wybierz lokal</label>
+        <select id="calcLoc"></select>
+      </div>
+      <div id="calcItems" class="calc-items"></div>
+      <div class="calc-bar">
+        <div class="calc-sum"><span data-i18n="kalk_total">Razem</span><b id="calcTotal">0 zł</b></div>
+        <div class="calc-sum"><span data-i18n="kalk_time">Czas</span><b id="calcTime">0 min</b></div>
+        <a id="calcBook" class="btn btn-amber" href="#" target="_blank" rel="noopener" data-i18n="kalk_book">Rezerwuj w tym lokalu</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="o-nas" class="sec sec-alt">
+  <div class="wrap onas">
+    <div class="onas-text reveal">
+      <h2 data-i18n="onas_title">O nas</h2>
+      <p data-i18n="onas_p1">Grizzly Barber Shop to męski barber z charakterem — założony w Szczecinie przez Antona Fomicha. Zaczęło się od jednego fotela, dziś to cztery lokale i jedno rzemiosło.</p>
+      <p data-i18n="onas_p2">Ostre nożyczki, gorący ręcznik, brzytwa i zero pośpiechu. Wchodzisz jak człowiek, wychodzisz jak niedźwiedź.</p>
+      <div class="values">
+        <div class="val"><h4 data-i18n="onas_v1t">Rzemiosło</h4><p data-i18n="onas_v1d">Każde strzyżenie dopięte na ostatni włos.</p></div>
+        <div class="val"><h4 data-i18n="onas_v2t">Atmosfera</h4><p data-i18n="onas_v2d">Wi-Fi, kawa, karta, zwierzaki i dzieciaki mile widziane.</p></div>
+        <div class="val"><h4 data-i18n="onas_v3t">Cztery lokale</h4><p data-i18n="onas_v3d">Ten sam standard w całym Szczecinie.</p></div>
+      </div>
+    </div>
+    <div class="onas-emblem reveal"><svg class="paw" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="64" rx="24" ry="20"/><ellipse cx="24" cy="44" rx="8" ry="11"/><ellipse cx="41" cy="32" rx="8.5" ry="12.5"/><ellipse cx="59" cy="32" rx="8.5" ry="12.5"/><ellipse cx="76" cy="44" rx="8" ry="11"/></svg></div>
+  </div>
+</section>
+
+<section id="opinie" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 data-i18n="opinie_title">Opinie</h2><p data-i18n="opinie_sub">Ponad 2300 opinii ze wszystkich lokali.</p></div>
+    <div class="rev reveal">
+      <button class="rev-arrow rev-prev" aria-label="prev">‹</button>
+      <div class="rev-track" id="revTrack"><div class="rev-slide"><p>“Najlepszy barber w Szczecinie. Zawsze wychodzę zadowolony, chłopaki znają się na robocie.”</p><div class="rev-by"><b>Kamil</b><span>Piastów</span></div></div><div class="rev-slide"><p>“Broda wymodelowana idealnie, gorący ręcznik, kawa i luźna atmosfera. Polecam.”</p><div class="rev-by"><b>Marek</b><span>Niebuszewo</span></div></div><div class="rev-slide"><p>“Precyzja i konkret. Combo strzyżenie + broda za każdym razem na medal.”</p><div class="rev-by"><b>Tomek</b><span>Mickiewicza</span></div></div><div class="rev-slide"><p>“Umówiłem się przez telefon, obsłużyli szybko i profesjonalnie. Wrócę na pewno.”</p><div class="rev-by"><b>Paweł</b><span>Gorkiego</span></div></div><div class="rev-slide"><p>“Klimat prawdziwego barbera. Widać, że robią to z pasją.”</p><div class="rev-by"><b>Bartek</b><span>Piastów</span></div></div></div>
+      <button class="rev-arrow rev-next" aria-label="next">›</button>
+    </div>
+    <div class="rev-dots" id="revDots"><button class="rev-dot on" data-i="0"></button><button class="rev-dot " data-i="1"></button><button class="rev-dot " data-i="2"></button><button class="rev-dot " data-i="3"></button><button class="rev-dot " data-i="4"></button></div>
+  </div>
+</section>
+
+<section id="galeria" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 data-i18n="galeria_title">Galeria</h2></div>
+    <div class="gallery-empty reveal">
+      <p data-i18n="galeria_empty">Zdjęcia realizacji zobaczysz na naszym Booksy i Instagramie.</p>
+      <div class="ge-btns"><a class="btn btn-ghost" href="https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin" target="_blank" rel="noopener">Booksy</a>
+      <a class="btn btn-ghost" href="https://www.instagram.com/grizzly_gorkiego_/" target="_blank" rel="noopener">Instagram</a></div>
+    </div>
+    <div class="ba-wrap reveal">
+      <h3 class="ba-title" data-i18n="ba_title">Efekt przed / po</h3>
+      <div class="ba" id="ba">
+        <div class="ba-after"></div>
+        <div class="ba-before" id="baBefore"><div class="ba-lbl">PRZED</div></div>
+        <div class="ba-after-lbl">PO</div>
+        <div class="ba-handle" id="baHandle"><span>‹ ›</span></div>
+        <input type="range" min="0" max="100" value="50" id="baRange" aria-label="before/after">
+      </div>
+      <p class="ba-note" data-i18n="ba_note">Wizualizacja poglądowa.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="sec">
+  <div class="wrap narrow">
+    <div class="sec-head reveal"><h2 data-i18n="faq_title">Częste pytania</h2></div>
+    <div class="faq"><div class="faq-item"><button class="faq-q"><span data-i18n="faq0q">Czy trzeba się umawiać?</span><span>+</span></button><div class="faq-a"><p><span data-i18n="faq0a">Najlepiej zarezerwuj online przez Booksy. Z wolnej ręki przyjmujemy w miarę dostępności.</span></p></div></div><div class="faq-item"><button class="faq-q"><span data-i18n="faq1q">Jak mogę zapłacić?</span><span>+</span></button><div class="faq-a"><p><span data-i18n="faq1a">Gotówką i kartą — w każdym lokalu.</span></p></div></div><div class="faq-item"><button class="faq-q"><span data-i18n="faq2q">Ile trwa wizyta?</span><span>+</span></button><div class="faq-a"><p><span data-i18n="faq2a">Strzyżenie ok. 45–60 min, combo strzyżenie + broda do 1,5 godziny.</span></p></div></div><div class="faq-item"><button class="faq-q"><span data-i18n="faq3q">Mogę przyjść z dzieckiem lub zwierzakiem?</span><span>+</span></button><div class="faq-a"><p><span data-i18n="faq3a">Tak — dzieci i zwierzaki są mile widziane.</span></p></div></div><div class="faq-item"><button class="faq-q"><span data-i18n="faq4q">Macie program lojalnościowy?</span><span>+</span></button><div class="faq-a"><p><span data-i18n="faq4a">Tak, zbierasz wizyty i łapiesz rabaty. Zapytaj swojego barbera.</span></p></div></div></div>
+  </div>
+</section>
+
+<section id="kontakt" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 data-i18n="kontakt_title">Kontakt</h2><p data-i18n="kontakt_sub">Wszystkie lokale Grizzly w jednym miejscu.</p></div>
+    <div class="contact-wrap">
+      <div class="ct-list"><div class="ct-row reveal">
+  <div><h4>Piastów <span class="open-badge" data-open="piastow"></span></h4><p>aleja Piastów 10/1, 70-331 Szczecin</p>
+  <p class="ct-sub">Pon–Niedz · 10:00 – 20:00</p></div>
+  <div class="ct-act"><a class="btn btn-amber" href="https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin" target="_blank" rel="noopener"><span data-i18n="book_booksy">Rezerwuj online</span></a><a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=aleja%20Piast%C3%B3w%2010%2C%20Szczecin" target="_blank" rel="noopener"><span data-i18n="map_label">Mapa</span></a></div>
+</div><div class="ct-row reveal">
+  <div><h4>Niebuszewo <span class="open-badge" data-open="niebuszewo"></span></h4><p>Księcia Warcisława I 27b, 71-667 Szczecin</p>
+  <p class="ct-sub">Pon–Niedz · 10:00 – 20:00</p></div>
+  <div class="ct-act"><a class="btn btn-amber" href="https://booksy.com/pl-pl/220732_grizzly-barber-shop-niebuszewo_barber-shop_18078_szczecin" target="_blank" rel="noopener"><span data-i18n="book_booksy">Rezerwuj online</span></a><a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Ksi%C4%99cia%20Warcis%C5%82awa%20I%2027b%2C%20Szczecin" target="_blank" rel="noopener"><span data-i18n="map_label">Mapa</span></a></div>
+</div><div class="ct-row reveal">
+  <div><h4>Mickiewicza <span class="open-badge" data-open="mickiewicza"></span></h4><p>Adama Mickiewicza 36A, 70-385 Szczecin</p>
+  <p class="ct-sub">Pon–Niedz · 10:00 – 20:00</p></div>
+  <div class="ct-act"><a class="btn btn-amber" href="https://booksy.com/pl-pl/263864_grizzly-barbershop-mickiewicza_barber-shop_18078_szczecin" target="_blank" rel="noopener"><span data-i18n="book_booksy">Rezerwuj online</span></a><a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Adama%20Mickiewicza%2036A%2C%20Szczecin" target="_blank" rel="noopener"><span data-i18n="map_label">Mapa</span></a></div>
+</div><div class="ct-row reveal">
+  <div><h4>Gorkiego <span class="open-badge" data-open="gorkiego"></span></h4><p>Maksyma Gorkiego 5, 70-390 Szczecin</p>
+  <p class="ct-sub">☎ +48 536 338 445</p></div>
+  <div class="ct-act"><a class="btn btn-amber" href="tel:+48536338445"><span data-i18n="book_phone">Zadzwoń i umów</span></a><a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Maksyma%20Gorkiego%205%2C%20Szczecin" target="_blank" rel="noopener"><span data-i18n="map_label">Mapa</span></a></div>
+</div></div>
+      <div class="ct-map reveal"><iframe loading="lazy" src="https://www.google.com/maps?q=aleja%20Piast%C3%B3w%2010%2C%20Szczecin&amp;output=embed" title="Mapa"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-foot">
+<div class="wrap foot-in">
+  <div>
+    <a class="brand" href="index.html"><svg class="paw" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="64" rx="24" ry="20"/><ellipse cx="24" cy="44" rx="8" ry="11"/><ellipse cx="41" cy="32" rx="8.5" ry="12.5"/><ellipse cx="59" cy="32" rx="8.5" ry="12.5"/><ellipse cx="76" cy="44" rx="8" ry="11"/></svg><span class="brand-word">GRIZZLY</span></a>
+    <p class="foot-tag"><span data-i18n="footer_tag">Męski fach, niedźwiedzia moc.</span></p>
+  </div>
+  <div class="foot-locs"><a href="lokal-piastow.html">Piastów</a> · <a href="lokal-niebuszewo.html">Niebuszewo</a> · <a href="lokal-mickiewicza.html">Mickiewicza</a> · <a href="lokal-gorkiego.html">Gorkiego</a></div>
+  <div class="foot-social">
+    <a href="https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin" target="_blank" rel="noopener">Booksy</a>
+    <a href="https://www.instagram.com/grizzly_gorkiego_/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://wa.me/48536338445" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</div>
+<div class="wrap foot-bar">© 2026 Grizzly Barber Shop · Szczecin · <span data-i18n="footer_rights">Wszystkie prawa zastrzeżone.</span></div>
+</footer>
+<div class="modal" id="bookModal"><div class="modal-card">
+  <button class="modal-x" aria-label="close">×</button>
+  <h3 data-i18n="modal_title">Gdzie chcesz się umówić?</h3>
+  <p data-i18n="modal_sub">Wybierz lokal — przekierujemy Cię do rezerwacji.</p>
+  <div class="mo-list"><a class="mo-loc" href="https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin" target="_blank" rel="noopener">
+  <div><b>Piastów</b><span>aleja Piastów 10/1, 70-331 Szczecin</span></div>
+  <span class="mo-go"><span data-i18n="book_booksy">Rezerwuj online</span> →</span></a><a class="mo-loc" href="https://booksy.com/pl-pl/220732_grizzly-barber-shop-niebuszewo_barber-shop_18078_szczecin" target="_blank" rel="noopener">
+  <div><b>Niebuszewo</b><span>Księcia Warcisława I 27b, 71-667 Szczecin</span></div>
+  <span class="mo-go"><span data-i18n="book_booksy">Rezerwuj online</span> →</span></a><a class="mo-loc" href="https://booksy.com/pl-pl/263864_grizzly-barbershop-mickiewicza_barber-shop_18078_szczecin" target="_blank" rel="noopener">
+  <div><b>Mickiewicza</b><span>Adama Mickiewicza 36A, 70-385 Szczecin</span></div>
+  <span class="mo-go"><span data-i18n="book_booksy">Rezerwuj online</span> →</span></a><a class="mo-loc" href="tel:+48536338445" >
+  <div><b>Gorkiego</b><span>Maksyma Gorkiego 5, 70-390 Szczecin</span></div>
+  <span class="mo-go"><span data-i18n="book_phone">Zadzwoń i umów</span> →</span></a></div>
+</div></div>
+<div class="mobar"><button class="btn btn-amber js-book" style="width:100%"><span data-i18n="btn_book">Rezerwuj</span></button></div>
+<div id="lightbox" class="lightbox"><button class="lb-close" aria-label="close">×</button><button class="lb-prev" aria-label="prev">‹</button><img id="lbImg" alt=""><button class="lb-next" aria-label="next">›</button></div>
+<button id="toTop" aria-label="top">↑</button>
+<script src="translations.js?v=3"></script>
+<script src="app.js?v=3"></script>
+</body></html>
