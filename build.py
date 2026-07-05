@@ -8,7 +8,7 @@ import json, os, re, glob, html, unicodedata
 from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VER = "11"  # cache-bust; bump after CSS/JS changes
+VER = "12"  # cache-bust; bump after CSS/JS changes
 
 BOOKSY_MAIN = "https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin"
 INSTAGRAM   = "https://www.instagram.com/grizzly_gorkiego_/"
@@ -567,7 +567,7 @@ def build_index():
   <div class="wrap hero-in">
     <h1 class="sr-only">Grizzly Barber Shop — Szczecin</h1>
     <p class="kicker" data-i18n="hero_kicker">{ta('hero_kicker')}</p>
-    <img class="hero-logo" src="assets/logo.png" alt="Grizzly Barber Shop">
+    <img class="hero-logo" src="assets/emblem.png" alt="Grizzly Barber Shop">
     <p class="hero-est">EST. 2021 · SZCZECIN</p>
     <p class="hero-sub" data-i18n="hero_sub">{ta('hero_sub')}</p>
     <div class="hero-cta">
@@ -861,7 +861,7 @@ html[data-theme="light"] .emb{filter:invert(1)}
 html[data-theme="light"] .hero-bg{filter:grayscale(1) contrast(1.05) brightness(.9)}
 html[data-theme="light"] .hero-shade{background:linear-gradient(to bottom,rgba(255,255,255,.5),rgba(255,255,255,.2) 40%,rgba(255,255,255,.7))}
 .hero-in,.loc-hero-in{position:relative;z-index:1}
-.hero-logo{width:min(340px,64vw);height:auto;margin:0 auto 4px;filter:drop-shadow(0 8px 30px rgba(0,0,0,.6))}
+.hero-logo{width:min(320px,60vw);height:auto;margin:0 auto 4px;filter:drop-shadow(0 8px 30px rgba(0,0,0,.6))}
 html[data-theme="light"] .hero-logo{filter:invert(1) drop-shadow(0 8px 24px rgba(0,0,0,.2))}
 .kicker{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.3em;font-size:.86rem;color:var(--amber2);font-weight:600;margin-bottom:16px;display:flex;gap:10px;align-items:center;justify-content:center}
 .hero-title{font-size:clamp(3rem,10vw,7rem);text-shadow:0 4px 30px rgba(0,0,0,.4)}
@@ -1125,6 +1125,7 @@ html[data-theme="light"] .site-foot{background:var(--panel2)}
 .kr-ctrl input[type=range]{flex:1;accent-color:#fff}
 .kr-ctrl button{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);color:#fff;min-width:38px;height:34px;border-radius:4px;cursor:pointer;font-size:1rem}
 .kr-ctrl button:hover{background:rgba(255,255,255,.28)}
+.kr-face:not(.cam) .kr-overlay{display:none!important}
 .kr-face.cam #krVideo{display:block}
 .kr-face.cam #krImg{display:none}
 .kr-face.cam .kr-hint{display:none}
