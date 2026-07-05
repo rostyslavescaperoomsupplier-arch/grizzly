@@ -4,11 +4,11 @@ Grizzly Barber Shop — static multi-location site generator (feature-rich).
 Edit the data below, then run:  python3 build.py
 Preview:  python3 -m http.server 8790
 """
-import json, os, re, glob, html
+import json, os, re, glob, html, unicodedata
 from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VER = "5"  # cache-bust; bump after CSS/JS changes
+VER = "6"  # cache-bust; bump after CSS/JS changes
 
 BOOKSY_MAIN = "https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin"
 INSTAGRAM   = "https://www.instagram.com/grizzly_gorkiego_/"
@@ -138,6 +138,20 @@ def emblem(rel="", cls=""):
     c = (" " + cls) if cls else ""
     return f'<img class="emb{c}" src="{rel}assets/emblem.png" alt="Grizzly Barber Shop">'
 
+def nslug(s):
+    s = "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c))
+    return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
+
+def team_photo(slug, name):
+    rel = f"assets/team/{slug}__{nslug(name)}.jpg"
+    return rel if os.path.exists(os.path.join(HERE, rel)) else None
+
+def tm_card(slug, name, role):
+    ph = team_photo(slug, name)
+    ava = (f'<div class="tm-ava has-photo"><img loading="lazy" src="{ph}" alt="{esc(name)}"></div>'
+           if ph else f'<div class="tm-ava">{emblem()}</div>')
+    return f'<div class="tm-card reveal">{ava}<h4>{esc(name)}</h4><span>{esc(role)}</span></div>'
+
 PAW = ('<svg class="paw" viewBox="0 0 100 100" aria-hidden="true">'
        '<ellipse cx="50" cy="64" rx="24" ry="20"/>'
        '<ellipse cx="24" cy="44" rx="8" ry="11"/>'
@@ -152,6 +166,7 @@ I18N = {
  "pl": {
   "nav_lokale":"Lokale","nav_barberzy":"Barberzy","nav_uslugi":"Cennik","nav_kalk":"Kalkulator","nav_onas":"O nas",
   "barberzy_title":"Barberzy","barberzy_sub":"Nasza ekipa w każdym lokalu — poznaj się przed wizytą.",
+  "feat_online":"Rezerwacja online","feat_card":"Płatność kartą","feat_wifi":"Wi-Fi","feat_loyal":"Program lojalnościowy","feat_pets":"Zwierzaki mile widziane","feat_kids":"Przyjazny dzieciom",
   "nav_opinie":"Opinie","nav_galeria":"Galeria","nav_faq":"FAQ","nav_kontakt":"Kontakt","btn_book":"Rezerwuj",
   "promo_text":"Program lojalnościowy — zbieraj wizyty i łap rabaty w każdym lokalu.","promo_cta":"Rezerwuj",
   "hero_kicker":"Szczecin · 4 lokale","hero_title":"GRIZZLY BARBER SHOP",
@@ -191,6 +206,7 @@ I18N = {
  "uk": {
   "nav_lokale":"Локації","nav_barberzy":"Барбери","nav_uslugi":"Прайс","nav_kalk":"Калькулятор","nav_onas":"Про нас",
   "barberzy_title":"Барбери","barberzy_sub":"Наша команда в кожній локації — знайомся перед візитом.",
+  "feat_online":"Онлайн-запис","feat_card":"Оплата карткою","feat_wifi":"Wi-Fi","feat_loyal":"Програма лояльності","feat_pets":"Тварини вітаються","feat_kids":"Дружній до дітей",
   "nav_opinie":"Відгуки","nav_galeria":"Галерея","nav_faq":"FAQ","nav_kontakt":"Контакти","btn_book":"Записатись",
   "promo_text":"Програма лояльності — збирай візити й лови знижки в кожній локації.","promo_cta":"Записатись",
   "hero_kicker":"Щецин · 4 локації","hero_title":"GRIZZLY BARBER SHOP",
@@ -230,6 +246,7 @@ I18N = {
  "ru": {
   "nav_lokale":"Локации","nav_barberzy":"Барберы","nav_uslugi":"Прайс","nav_kalk":"Калькулятор","nav_onas":"О нас",
   "barberzy_title":"Барберы","barberzy_sub":"Наша команда в каждой локации — знакомься перед визитом.",
+  "feat_online":"Онлайн-запись","feat_card":"Оплата картой","feat_wifi":"Wi-Fi","feat_loyal":"Программа лояльности","feat_pets":"Животные welcome","feat_kids":"Можно с детьми",
   "nav_opinie":"Отзывы","nav_galeria":"Галерея","nav_faq":"FAQ","nav_kontakt":"Контакты","btn_book":"Записаться",
   "promo_text":"Программа лояльности — копи визиты и лови скидки в каждой локации.","promo_cta":"Записаться",
   "hero_kicker":"Щецин · 4 локации","hero_title":"GRIZZLY BARBER SHOP",
@@ -269,6 +286,7 @@ I18N = {
  "en": {
   "nav_lokale":"Locations","nav_barberzy":"Barbers","nav_uslugi":"Prices","nav_kalk":"Calculator","nav_onas":"About",
   "barberzy_title":"Barbers","barberzy_sub":"Our crew at every shop — meet them before your visit.",
+  "feat_online":"Online booking","feat_card":"Card payment","feat_wifi":"Wi-Fi","feat_loyal":"Loyalty program","feat_pets":"Pets welcome","feat_kids":"Kid-friendly",
   "nav_opinie":"Reviews","nav_galeria":"Gallery","nav_faq":"FAQ","nav_kontakt":"Contact","btn_book":"Book now",
   "promo_text":"Loyalty program — collect visits and unlock discounts at every shop.","promo_cta":"Book now",
   "hero_kicker":"Szczecin · 4 shops","hero_title":"GRIZZLY BARBER SHOP",
@@ -423,6 +441,22 @@ def book_btn(l, big=False, cls_extra=""):
 def open_badge(slug):
     return f'<span class="open-badge" data-open="{slug}"></span>'
 
+_FEAT_ICONS = {
+ "online": '<rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4M9 14l2 2 4-4"/>',
+ "card": '<rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 9.5h19M6 15h4"/>',
+ "wifi": '<path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8 15.3a5 5 0 0 1 8 0"/><circle cx="12" cy="19" r="1" fill="currentColor" stroke="none"/>',
+ "loyal": '<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.2l5.9-.9z"/>',
+ "pets": '<ellipse cx="12" cy="15" rx="4" ry="3.2"/><ellipse cx="6.5" cy="10" rx="1.6" ry="2.1"/><ellipse cx="10" cy="7.5" rx="1.7" ry="2.3"/><ellipse cx="14" cy="7.5" rx="1.7" ry="2.3"/><ellipse cx="17.5" cy="10" rx="1.6" ry="2.1"/>',
+ "kids": '<circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M8.5 14.5a4.5 4.5 0 0 0 7 0"/>',
+}
+def features_strip():
+    order = [("online","feat_online"),("card","feat_card"),("wifi","feat_wifi"),
+             ("loyal","feat_loyal"),("pets","feat_pets"),("kids","feat_kids")]
+    items = "".join(
+        f'<div class="feat"><svg viewBox="0 0 24 24">{_FEAT_ICONS[ic]}</svg>'
+        f'<span data-i18n="{key}">{ta(key)}</span></div>' for ic, key in order)
+    return f'<section class="features"><div class="wrap feat-in">{items}</div></section>'
+
 # ---------------------------------------------------------------------------
 # INDEX
 # ---------------------------------------------------------------------------
@@ -462,9 +496,7 @@ def build_index():
     for l in LOCATIONS:
         if not l["staff"]:
             continue
-        tm = "".join(
-            f'<div class="tm-card reveal"><div class="tm-ava">{emblem()}</div><h4>{esc(nm)}</h4><span>{esc(role)}</span></div>'
-            for (nm, role) in l["staff"])
+        tm = "".join(tm_card(l["slug"], nm, role) for (nm, role) in l["staff"])
         masters_blocks += f"""<div class="masters-loc">
   <div class="ml-head reveal">{esc(l['short'])} <a href="lokal-{l['slug']}.html">{t('view_loc')} →</a></div>
   <div class="team-grid">{tm}</div>
@@ -522,6 +554,7 @@ def build_index():
     <h1 class="sr-only">Grizzly Barber Shop — Szczecin</h1>
     <p class="kicker" data-i18n="hero_kicker">{ta('hero_kicker')}</p>
     <img class="hero-logo" src="assets/logo.png" alt="Grizzly Barber Shop">
+    <p class="hero-est">EST. 2021 · SZCZECIN</p>
     <p class="hero-sub" data-i18n="hero_sub">{ta('hero_sub')}</p>
     <div class="hero-cta">
       <button class="btn btn-amber btn-lg js-book" data-i18n="hero_cta1">{ta('hero_cta1')}</button>
@@ -535,6 +568,8 @@ def build_index():
     </div>
   </div>
 </section>
+
+{features_strip()}
 
 <section id="lokale" class="sec">
   <div class="wrap">
@@ -651,9 +686,7 @@ def build_location(l):
         for (n, p, tm) in l["services"])
     team = ""
     if l["staff"]:
-        cards = "".join(
-            f'<div class="tm-card reveal"><div class="tm-ava">{emblem()}</div><h4>{esc(nm)}</h4><span>{esc(role)}</span></div>'
-            for (nm, role) in l["staff"])
+        cards = "".join(tm_card(l["slug"], nm, role) for (nm, role) in l["staff"])
         team = f"""<section class="sec sec-alt"><div class="wrap">
   <div class="sec-head reveal"><h2 data-i18n="loc_team_title">{ta('loc_team_title')}</h2></div>
   <div class="team-grid">{cards}</div></div></section>"""
@@ -791,9 +824,28 @@ html[data-theme="light"] .hero-logo{filter:invert(1) drop-shadow(0 8px 24px rgba
 
 .sec{padding:80px 0}
 .sec-alt{background:var(--panel)}
-.sec-head{text-align:center;max-width:640px;margin:0 auto 42px}
-.sec-head h2{font-size:clamp(2rem,5vw,3rem);text-transform:uppercase}
-.sec-head p{color:var(--mut);margin-top:12px;font-size:1.08rem}
+.sec-head{text-align:center;max-width:660px;margin:0 auto 46px}
+.sec-head h2{font-size:clamp(2rem,5vw,3rem);text-transform:uppercase;display:inline-block;position:relative}
+.sec-head h2::after{content:"";display:block;width:54px;height:3px;background:var(--ink);margin:16px auto 0;opacity:.85}
+.sec-head p{color:var(--mut);margin-top:14px;font-size:1.08rem}
+
+/* hero est line */
+.hero-est{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.34em;font-size:.74rem;color:var(--mut);margin-top:14px}
+
+/* features / amenities strip */
+.features{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel)}
+.feat-in{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+.feat{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:26px 12px;border-left:1px solid var(--line)}
+.feat:first-child{border-left:0}
+.feat svg{width:26px;height:26px;stroke:var(--ink);fill:none;stroke-width:1.6;opacity:.9}
+.feat span{font-family:'Barlow Condensed';font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:.82rem;color:var(--mut);line-height:1.2}
+.feat:hover span{color:var(--ink)}
+
+/* location card image gradient */
+.lc-img{position:relative}
+.lc-img::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,.35))}
+html[data-theme="light"] .lc-img::after{background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,.12))}
+.lc-img.emblem::after{display:none}
 
 /* location grid */
 .loc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
@@ -941,6 +993,9 @@ html[data-theme="light"] .ct-map iframe,html[data-theme="light"] .loc-map iframe
 .tm-ava{width:78px;height:78px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle at 40% 30%,var(--panel2),#0a0a0b);display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
 .tm-ava .paw{width:40px;height:40px}
 .tm-ava .emb{height:44px;opacity:.9}
+.tm-ava.has-photo{padding:0;overflow:hidden}
+.tm-ava.has-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:.35s}
+.tm-card:hover .tm-ava.has-photo img{filter:grayscale(0) contrast(1.05)}
 .tm-card h4{font-size:1.25rem;text-transform:uppercase}
 .tm-card span{color:var(--mut);font-size:.82rem;text-transform:uppercase;letter-spacing:.08em}
 .masters-loc{margin-bottom:36px}
@@ -1000,6 +1055,13 @@ html[data-theme="light"] .site-foot{background:var(--panel2)}
   .onas{grid-template-columns:1fr}.onas-emblem{order:-1}
   .contact-wrap{grid-template-columns:1fr}.ct-map iframe{min-height:320px}
   .values{grid-template-columns:1fr}
+  .feat-in{grid-template-columns:repeat(3,1fr)}
+  .feat:nth-child(3n+1){border-left:0}.feat:nth-child(n+4){border-top:1px solid var(--line)}
+}
+@media(max-width:520px){
+  .feat-in{grid-template-columns:repeat(2,1fr)}
+  .feat{border-left:0!important}.feat:nth-child(2n){border-left:1px solid var(--line)!important}
+  .feat:nth-child(n+3){border-top:1px solid var(--line)}
 }
 @media(max-width:940px){
   .nav{display:none}.head-cta{display:none}.burger{display:flex}
