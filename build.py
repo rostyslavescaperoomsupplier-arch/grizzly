@@ -8,7 +8,7 @@ import json, os, re, glob, html
 from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VER = "3"  # cache-bust; bump after CSS/JS changes
+VER = "5"  # cache-bust; bump after CSS/JS changes
 
 BOOKSY_MAIN = "https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin"
 INSTAGRAM   = "https://www.instagram.com/grizzly_gorkiego_/"
@@ -134,6 +134,10 @@ def maps_link(q):  return f"https://www.google.com/maps/search/?api=1&query={quo
 def t(key): return f'<span data-i18n="{key}">{esc(I18N["pl"][key])}</span>'
 def ta(key): return esc(I18N["pl"][key])  # plain PL text (for attributes / default)
 
+def emblem(rel="", cls=""):
+    c = (" " + cls) if cls else ""
+    return f'<img class="emb{c}" src="{rel}assets/emblem.png" alt="Grizzly Barber Shop">'
+
 PAW = ('<svg class="paw" viewBox="0 0 100 100" aria-hidden="true">'
        '<ellipse cx="50" cy="64" rx="24" ry="20"/>'
        '<ellipse cx="24" cy="44" rx="8" ry="11"/>'
@@ -146,7 +150,8 @@ PAW = ('<svg class="paw" viewBox="0 0 100 100" aria-hidden="true">'
 # ---------------------------------------------------------------------------
 I18N = {
  "pl": {
-  "nav_lokale":"Lokale","nav_uslugi":"Cennik","nav_kalk":"Kalkulator","nav_onas":"O nas",
+  "nav_lokale":"Lokale","nav_barberzy":"Barberzy","nav_uslugi":"Cennik","nav_kalk":"Kalkulator","nav_onas":"O nas",
+  "barberzy_title":"Barberzy","barberzy_sub":"Nasza ekipa w każdym lokalu — poznaj się przed wizytą.",
   "nav_opinie":"Opinie","nav_galeria":"Galeria","nav_faq":"FAQ","nav_kontakt":"Kontakt","btn_book":"Rezerwuj",
   "promo_text":"Program lojalnościowy — zbieraj wizyty i łap rabaty w każdym lokalu.","promo_cta":"Rezerwuj",
   "hero_kicker":"Szczecin · 4 lokale","hero_title":"GRIZZLY BARBER SHOP",
@@ -184,7 +189,8 @@ I18N = {
   "footer_tag":"Męski fach, niedźwiedzia moc.","footer_rights":"Wszystkie prawa zastrzeżone.",
  },
  "uk": {
-  "nav_lokale":"Локації","nav_uslugi":"Прайс","nav_kalk":"Калькулятор","nav_onas":"Про нас",
+  "nav_lokale":"Локації","nav_barberzy":"Барбери","nav_uslugi":"Прайс","nav_kalk":"Калькулятор","nav_onas":"Про нас",
+  "barberzy_title":"Барбери","barberzy_sub":"Наша команда в кожній локації — знайомся перед візитом.",
   "nav_opinie":"Відгуки","nav_galeria":"Галерея","nav_faq":"FAQ","nav_kontakt":"Контакти","btn_book":"Записатись",
   "promo_text":"Програма лояльності — збирай візити й лови знижки в кожній локації.","promo_cta":"Записатись",
   "hero_kicker":"Щецин · 4 локації","hero_title":"GRIZZLY BARBER SHOP",
@@ -222,7 +228,8 @@ I18N = {
   "footer_tag":"Чоловіче ремесло, ведмежа сила.","footer_rights":"Усі права захищені.",
  },
  "ru": {
-  "nav_lokale":"Локации","nav_uslugi":"Прайс","nav_kalk":"Калькулятор","nav_onas":"О нас",
+  "nav_lokale":"Локации","nav_barberzy":"Барберы","nav_uslugi":"Прайс","nav_kalk":"Калькулятор","nav_onas":"О нас",
+  "barberzy_title":"Барберы","barberzy_sub":"Наша команда в каждой локации — знакомься перед визитом.",
   "nav_opinie":"Отзывы","nav_galeria":"Галерея","nav_faq":"FAQ","nav_kontakt":"Контакты","btn_book":"Записаться",
   "promo_text":"Программа лояльности — копи визиты и лови скидки в каждой локации.","promo_cta":"Записаться",
   "hero_kicker":"Щецин · 4 локации","hero_title":"GRIZZLY BARBER SHOP",
@@ -260,7 +267,8 @@ I18N = {
   "footer_tag":"Мужское ремесло, медвежья сила.","footer_rights":"Все права защищены.",
  },
  "en": {
-  "nav_lokale":"Locations","nav_uslugi":"Prices","nav_kalk":"Calculator","nav_onas":"About",
+  "nav_lokale":"Locations","nav_barberzy":"Barbers","nav_uslugi":"Prices","nav_kalk":"Calculator","nav_onas":"About",
+  "barberzy_title":"Barbers","barberzy_sub":"Our crew at every shop — meet them before your visit.",
   "nav_opinie":"Reviews","nav_galeria":"Gallery","nav_faq":"FAQ","nav_kontakt":"Contact","btn_book":"Book now",
   "promo_text":"Loyalty program — collect visits and unlock discounts at every shop.","promo_cta":"Book now",
   "hero_kicker":"Szczecin · 4 shops","hero_title":"GRIZZLY BARBER SHOP",
@@ -332,7 +340,7 @@ def head(title, rel=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{rel}styles.css?v={VER}">
-<link rel="icon" href="{rel}favicon.svg">
+<link rel="icon" href="{rel}assets/favicon.png?v={VER}">
 </head>
 <body>
 <script>var r=document.documentElement;r.classList.remove('no-js');r.classList.add('js');try{{var th=localStorage.getItem('grz_theme');if(th)r.setAttribute('data-theme',th);}}catch(e){{}}</script>
@@ -343,13 +351,13 @@ def _nav_links(rel, keys):
     return "".join(f'<a href="{rel}index.html#{sec}">{t(key)}</a>' for sec, key in keys)
 
 def header(rel=""):
-    top = [("lokale","nav_lokale"),("uslugi","nav_uslugi"),("opinie","nav_opinie"),
+    top = [("lokale","nav_lokale"),("barberzy","nav_barberzy"),("uslugi","nav_uslugi"),
            ("galeria","nav_galeria"),("kontakt","nav_kontakt")]
-    full = [("lokale","nav_lokale"),("uslugi","nav_uslugi"),("kalkulator","nav_kalk"),
+    full = [("lokale","nav_lokale"),("barberzy","nav_barberzy"),("uslugi","nav_uslugi"),("kalkulator","nav_kalk"),
             ("opinie","nav_opinie"),("galeria","nav_galeria"),("faq","nav_faq"),("kontakt","nav_kontakt")]
     return f"""<header class="site-head">
 <div class="wrap head-in">
-  <a class="brand" href="{rel}index.html">{PAW}<span class="brand-word">GRIZZLY</span></a>
+  <a class="brand" href="{rel}index.html">{emblem(rel)}<span class="brand-word">GRIZZLY</span></a>
   <nav class="nav">{_nav_links(rel, top)}</nav>
   <div class="head-right">
     <button class="theme-btn" id="themeBtn" aria-label="motyw">◐</button>
@@ -370,7 +378,7 @@ def footer(rel=""):
     return f"""<footer class="site-foot">
 <div class="wrap foot-in">
   <div>
-    <a class="brand" href="{rel}index.html">{PAW}<span class="brand-word">GRIZZLY</span></a>
+    <a class="brand" href="{rel}index.html">{emblem(rel)}<span class="brand-word">GRIZZLY</span></a>
     <p class="foot-tag">{t('footer_tag')}</p>
   </div>
   <div class="foot-locs">{loc_links}</div>
@@ -418,19 +426,29 @@ def open_badge(slug):
 # ---------------------------------------------------------------------------
 # INDEX
 # ---------------------------------------------------------------------------
+def loc_photo(slug):
+    p = os.path.join(HERE, "assets", "loc", f"{slug}.jpg")
+    return f"assets/loc/{slug}.jpg" if os.path.exists(p) else None
+
 def location_card(l):
     if l["rating"]:
         meta = f'<span class="lc-rate"><span class="stars">★</span> <b>{esc(l["rating"])}</b> · {esc(l["reviews"])} {t("reviews_word")}</span>'
     else:
         meta = f'<span class="lc-rate lc-new">{t("new_loc")}</span>'
     flag = '<span class="lc-flag">★</span>' if l["flagship"] else ""
+    ph = loc_photo(l["slug"])
+    img = (f'<div class="lc-img" style="background-image:url({ph})"></div>' if ph
+           else f'<div class="lc-img emblem">{emblem()}</div>')
     return f"""<a class="loc-card reveal" data-slug="{l['slug']}" href="lokal-{l['slug']}.html">
   {flag}{open_badge(l['slug'])}
-  <h3>{esc(l['short'])}</h3>
-  <p class="lc-addr">{esc(l['address'])}</p>
-  {meta}
-  <span class="lc-dist" data-dist="{l['slug']}"></span>
-  <span class="lc-go">{t('view_loc')} →</span>
+  {img}
+  <div class="lc-body">
+    <h3>{esc(l['short'])}</h3>
+    <p class="lc-addr">{esc(l['address'])}</p>
+    {meta}
+    <span class="lc-dist" data-dist="{l['slug']}"></span>
+    <span class="lc-go">{t('view_loc')} →</span>
+  </div>
 </a>"""
 
 def svc_chip(s):
@@ -439,6 +457,18 @@ def svc_chip(s):
 
 def build_index():
     cards = "".join(location_card(l) for l in LOCATIONS)
+    # masters grouped by location
+    masters_blocks = ""
+    for l in LOCATIONS:
+        if not l["staff"]:
+            continue
+        tm = "".join(
+            f'<div class="tm-card reveal"><div class="tm-ava">{emblem()}</div><h4>{esc(nm)}</h4><span>{esc(role)}</span></div>'
+            for (nm, role) in l["staff"])
+        masters_blocks += f"""<div class="masters-loc">
+  <div class="ml-head reveal">{esc(l['short'])} <a href="lokal-{l['slug']}.html">{t('view_loc')} →</a></div>
+  <div class="team-grid">{tm}</div>
+</div>"""
     # price tabs
     tabs = "".join(
         f'<button class="tab {"on" if i==0 else ""}" data-tab="{l["slug"]}">{esc(l["short"])}</button>'
@@ -486,10 +516,12 @@ def build_index():
 </div></div>
 <main>
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" style="background-image:url(assets/hero.jpg)"></div>
+  <div class="hero-shade"></div>
   <div class="wrap hero-in">
+    <h1 class="sr-only">Grizzly Barber Shop — Szczecin</h1>
     <p class="kicker" data-i18n="hero_kicker">{ta('hero_kicker')}</p>
-    <h1 class="hero-title">GRIZZLY BARBER SHOP</h1>
+    <img class="hero-logo" src="assets/logo.png" alt="Grizzly Barber Shop">
     <p class="hero-sub" data-i18n="hero_sub">{ta('hero_sub')}</p>
     <div class="hero-cta">
       <button class="btn btn-amber btn-lg js-book" data-i18n="hero_cta1">{ta('hero_cta1')}</button>
@@ -511,7 +543,14 @@ def build_index():
   </div>
 </section>
 
-<section id="uslugi" class="sec sec-alt">
+<section id="barberzy" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 data-i18n="barberzy_title">{ta('barberzy_title')}</h2><p data-i18n="barberzy_sub">{ta('barberzy_sub')}</p></div>
+    {masters_blocks}
+  </div>
+</section>
+
+<section id="uslugi" class="sec">
   <div class="wrap">
     <div class="sec-head reveal"><h2 data-i18n="uslugi_title">{ta('uslugi_title')}</h2><p data-i18n="uslugi_sub">{ta('uslugi_sub')}</p></div>
     <div class="tabs">{tabs}</div>
@@ -549,7 +588,7 @@ def build_index():
         <div class="val"><h4 data-i18n="onas_v3t">{ta('onas_v3t')}</h4><p data-i18n="onas_v3d">{ta('onas_v3d')}</p></div>
       </div>
     </div>
-    <div class="onas-emblem reveal">{PAW}</div>
+    <div class="onas-emblem reveal"><img src="assets/about.jpg" alt="Grizzly Barber Shop — Szczecin" class="onas-photo"></div>
   </div>
 </section>
 
@@ -613,7 +652,7 @@ def build_location(l):
     team = ""
     if l["staff"]:
         cards = "".join(
-            f'<div class="tm-card reveal"><div class="tm-ava">{PAW}</div><h4>{esc(nm)}</h4><span>{esc(role)}</span></div>'
+            f'<div class="tm-card reveal"><div class="tm-ava">{emblem()}</div><h4>{esc(nm)}</h4><span>{esc(role)}</span></div>'
             for (nm, role) in l["staff"])
         team = f"""<section class="sec sec-alt"><div class="wrap">
   <div class="sec-head reveal"><h2 data-i18n="loc_team_title">{ta('loc_team_title')}</h2></div>
@@ -625,10 +664,12 @@ def build_location(l):
         f'<a href="lokal-{o["slug"]}.html">{esc(o["short"])}</a>'
         for o in LOCATIONS if o["slug"] != l["slug"])
 
+    ph = loc_photo(l["slug"]) or "assets/hero.jpg"
     body = f"""{header()}
 <main>
 <section class="loc-hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" style="background-image:url({ph})"></div>
+  <div class="hero-shade"></div>
   <div class="wrap loc-hero-in">
     <a class="back-link" href="index.html#lokale">← <span data-i18n="back_all">{ta('back_all')}</span></a>
     <p class="kicker">Grizzly Barber Shop {open_badge(l['slug'])}</p>
@@ -672,13 +713,13 @@ def build_location(l):
 CSS = r"""
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#12100d; --panel:#1b1712; --panel2:#221d17; --ink:#f3ede1; --mut:#a99e8c;
-  --amber:#d08c2c; --amber2:#f0a63a; --line:rgba(210,180,120,.14); --maxw:1160px;
-  --card:#1b1712; --shadow:rgba(0,0,0,.7);
+  --bg:#0c0c0d; --panel:#151517; --panel2:#1c1c1f; --ink:#f1efe9; --mut:#9a978f;
+  --amber:#e4e0d6; --amber2:#ffffff; --line:rgba(240,238,231,.13); --maxw:1160px;
+  --card:#151517; --shadow:rgba(0,0,0,.7);
 }
 html[data-theme="light"]{
-  --bg:#f4efe6; --panel:#fbf7ef; --panel2:#efe7d8; --ink:#20180e; --mut:#6f6353;
-  --amber:#b6741c; --amber2:#c8892f; --line:rgba(120,90,40,.18); --card:#fbf7ef; --shadow:rgba(120,90,40,.18);
+  --bg:#f3f1ec; --panel:#fbfaf6; --panel2:#eae7df; --ink:#141413; --mut:#65625b;
+  --amber:#2a2a2a; --amber2:#111111; --line:rgba(20,20,20,.14); --card:#fbfaf6; --shadow:rgba(0,0,0,.14);
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'Barlow',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;overflow-x:hidden}
@@ -693,18 +734,21 @@ h1,h2,h3,h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spa
 
 .btn{display:inline-flex;align-items:center;gap:.4em;padding:.72em 1.35em;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid transparent;transition:.18s;font-family:'Barlow Condensed'}
 .btn-lg{padding:.9em 1.7em;font-size:1.08rem}
-.btn-amber{background:linear-gradient(135deg,var(--amber2),var(--amber));color:#1a1408;box-shadow:0 6px 22px -8px rgba(208,140,44,.6)}
-.btn-amber:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn-amber{background:var(--ink);color:var(--bg);border:1px solid var(--ink)}
+.btn-amber:hover{background:transparent;color:var(--ink);transform:translateY(-1px)}
 .btn-ghost{border-color:var(--line);color:var(--ink);background:transparent}
-.btn-ghost:hover{border-color:var(--amber);color:var(--amber2)}
-.paw{width:34px;height:34px;fill:var(--amber2);filter:drop-shadow(0 2px 6px rgba(208,140,44,.35));flex:none}
+.btn-ghost:hover{border-color:var(--ink);color:var(--amber2)}
+.paw{width:34px;height:34px;fill:var(--ink);flex:none}
+.emb{height:34px;width:auto;object-fit:contain;flex:none;display:block}
+html[data-theme="light"] .emb{filter:invert(1)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 
 /* promo ribbon */
-.promo{background:linear-gradient(135deg,var(--amber),var(--amber2));color:#1a1408}
+.promo{background:var(--ink);color:var(--bg)}
 .promo.hide{display:none}
 .promo-in{display:flex;align-items:center;gap:14px;padding:9px 22px;font-family:'Barlow Condensed';font-weight:600;font-size:.98rem}
-.promo-cta{margin-left:auto;background:#1a1408;color:var(--amber2);border:none;padding:6px 14px;border-radius:2px;font-family:'Barlow Condensed';font-weight:600;text-transform:uppercase;letter-spacing:.05em;cursor:pointer}
-.promo-x{background:none;border:none;color:#1a1408;font-size:1.3rem;cursor:pointer;line-height:1}
+.promo-cta{margin-left:auto;background:var(--bg);color:var(--ink);border:none;padding:6px 14px;border-radius:2px;font-family:'Barlow Condensed';font-weight:600;text-transform:uppercase;letter-spacing:.05em;cursor:pointer}
+.promo-x{background:none;border:none;color:var(--bg);font-size:1.3rem;cursor:pointer;line-height:1}
 
 /* header */
 .site-head{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
@@ -728,12 +772,13 @@ h1,h2,h3,h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spa
 /* hero */
 .hero,.loc-hero{position:relative;overflow:hidden;padding:118px 0 84px;text-align:center}
 .loc-hero{padding:92px 0 56px}
-.hero-bg{position:absolute;inset:0;z-index:0;
-  background:radial-gradient(ellipse 60% 55% at 50% 0%,rgba(208,140,44,.16),transparent 70%),
-    radial-gradient(ellipse 90% 60% at 50% 120%,rgba(0,0,0,.55),transparent),
-    repeating-linear-gradient(115deg,rgba(255,255,255,.014) 0 2px,transparent 2px 9px)}
-html[data-theme="light"] .hero-bg{background:radial-gradient(ellipse 60% 55% at 50% 0%,rgba(200,137,47,.18),transparent 70%),repeating-linear-gradient(115deg,rgba(120,90,40,.03) 0 2px,transparent 2px 9px)}
+.hero-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.06) brightness(.34)}
+.hero-shade{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 70% at 50% 40%,transparent,rgba(0,0,0,.55)),linear-gradient(to bottom,rgba(0,0,0,.4),transparent 30%,rgba(0,0,0,.75))}
+html[data-theme="light"] .hero-bg{filter:grayscale(1) contrast(1.05) brightness(.9)}
+html[data-theme="light"] .hero-shade{background:linear-gradient(to bottom,rgba(255,255,255,.5),rgba(255,255,255,.2) 40%,rgba(255,255,255,.7))}
 .hero-in,.loc-hero-in{position:relative;z-index:1}
+.hero-logo{width:min(440px,78vw);height:auto;margin:0 auto 6px;filter:drop-shadow(0 8px 30px rgba(0,0,0,.6))}
+html[data-theme="light"] .hero-logo{filter:invert(1) drop-shadow(0 8px 24px rgba(0,0,0,.2))}
 .kicker{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.3em;font-size:.86rem;color:var(--amber2);font-weight:600;margin-bottom:16px;display:flex;gap:10px;align-items:center;justify-content:center}
 .hero-title{font-size:clamp(3rem,10vw,7rem);text-shadow:0 4px 30px rgba(0,0,0,.4)}
 .hero-sub{max-width:640px;margin:20px auto 0;color:var(--mut);font-size:1.16rem}
@@ -752,10 +797,15 @@ html[data-theme="light"] .hero-bg{background:radial-gradient(ellipse 60% 55% at 
 
 /* location grid */
 .loc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
-.loc-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:30px 26px;transition:.2s;overflow:hidden}
+.loc-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:6px;transition:.2s;overflow:hidden;display:block}
 .sec-alt .loc-card{background:var(--panel2)}
-.loc-card:hover{border-color:var(--amber);transform:translateY(-4px);box-shadow:0 18px 40px -20px var(--shadow)}
+.loc-card:hover{border-color:var(--ink);transform:translateY(-4px);box-shadow:0 18px 40px -20px var(--shadow)}
+.loc-card:hover .lc-img{filter:grayscale(0);transform:scale(1.04)}
 .loc-card.near{border-color:var(--amber2);box-shadow:0 0 0 1px var(--amber2)}
+.lc-img{height:190px;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.05) brightness(.8);transition:.4s}
+.lc-img.emblem{display:flex;align-items:center;justify-content:center;filter:none;background:radial-gradient(circle at 50% 40%,var(--panel2),#0a0a0b)}
+.lc-img.emblem .emb{height:96px;opacity:.85}
+.lc-body{padding:24px 26px 30px}
 .loc-card h3{font-size:1.9rem;text-transform:uppercase;margin-bottom:6px}
 .lc-addr{color:var(--mut);font-size:.98rem;min-height:2.6em}
 .lc-rate{display:inline-block;margin-top:12px;font-size:.95rem}
@@ -809,7 +859,8 @@ html[data-theme="light"] .hero-bg{background:radial-gradient(ellipse 60% 55% at 
 .val h4{font-size:1.1rem;text-transform:uppercase}
 .val p{font-size:.9rem;margin:4px 0 0}
 .onas-emblem{display:flex;justify-content:center}
-.onas-emblem .paw{width:min(260px,60vw);height:auto;opacity:.9}
+.onas-photo{width:100%;border-radius:8px;border:1px solid var(--line);filter:grayscale(1) contrast(1.05);transition:.4s}
+.onas-photo:hover{filter:grayscale(0) contrast(1.05)}
 
 /* reviews */
 .rev{position:relative;max-width:820px;margin:0 auto;overflow:hidden}
@@ -828,8 +879,8 @@ html[data-theme="light"] .hero-bg{background:radial-gradient(ellipse 60% 55% at 
 
 /* gallery */
 .masonry{columns:3;column-gap:12px}
-.masonry img{width:100%;border-radius:5px;margin-bottom:12px;cursor:zoom-in;transition:.2s}
-.masonry img:hover{filter:brightness(1.1)}
+.masonry img{width:100%;border-radius:5px;margin-bottom:12px;cursor:zoom-in;transition:.35s;filter:grayscale(1) contrast(1.03)}
+.masonry img:hover{filter:grayscale(0) contrast(1.03);transform:scale(1.01)}
 .gallery-empty{border:1.5px dashed var(--line);border-radius:8px;padding:52px 24px;text-align:center;background:var(--card)}
 .gallery-empty p{color:var(--mut);font-size:1.1rem;margin-bottom:20px}
 .ge-btns{display:flex;gap:12px;justify-content:center}
@@ -838,8 +889,8 @@ html[data-theme="light"] .hero-bg{background:radial-gradient(ellipse 60% 55% at 
 .ba-wrap{max-width:720px;margin:44px auto 0;text-align:center}
 .ba-title{text-transform:uppercase;font-size:1.5rem;margin-bottom:16px}
 .ba{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--line);user-select:none}
-.ba-after{position:absolute;inset:0;background:linear-gradient(135deg,#2b2118,#4a3826 60%,#6a5236)}
-.ba-before{position:absolute;inset:0;width:50%;overflow:hidden;background:linear-gradient(135deg,#1a1712,#2a251d 60%,#3a342a)}
+.ba-after{position:absolute;inset:0;background:linear-gradient(135deg,#3a3a3c,#66666a 60%,#8c8c90)}
+.ba-before{position:absolute;inset:0;width:50%;overflow:hidden;background:linear-gradient(135deg,#141416,#242428 60%,#3a3a3e)}
 .ba-before::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(0,0,0,.25) 0 6px,transparent 6px 12px)}
 .ba-lbl,.ba-after-lbl{position:absolute;bottom:12px;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;color:#fff;font-size:.85rem;background:rgba(0,0,0,.45);padding:4px 10px;border-radius:3px;z-index:2}
 .ba-lbl{left:12px}.ba-after-lbl{right:12px}
@@ -887,10 +938,15 @@ html[data-theme="light"] .ct-map iframe,html[data-theme="light"] .loc-map iframe
 .menu-cta{text-align:center;margin-top:34px}
 .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;max-width:900px;margin:0 auto}
 .tm-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px 16px;text-align:center}
-.tm-ava{width:78px;height:78px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle at 40% 30%,var(--panel2),#0d0b08);display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+.tm-ava{width:78px;height:78px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle at 40% 30%,var(--panel2),#0a0a0b);display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
 .tm-ava .paw{width:40px;height:40px}
+.tm-ava .emb{height:44px;opacity:.9}
 .tm-card h4{font-size:1.25rem;text-transform:uppercase}
-.tm-card span{color:var(--amber2);font-size:.82rem;text-transform:uppercase;letter-spacing:.08em}
+.tm-card span{color:var(--mut);font-size:.82rem;text-transform:uppercase;letter-spacing:.08em}
+.masters-loc{margin-bottom:36px}
+.masters-loc .ml-head{text-align:center;text-transform:uppercase;font-size:1.4rem;margin-bottom:18px;letter-spacing:.02em;display:flex;gap:10px;align-items:center;justify-content:center}
+.masters-loc .ml-head a{color:var(--mut);font-size:.85rem;font-weight:500;text-transform:none;letter-spacing:0}
+.masters-loc .ml-head a:hover{color:var(--ink)}
 .loc-map iframe{width:100%;height:440px;border:0;border-radius:8px;filter:grayscale(.4) contrast(1.05) brightness(.85)}
 .sib-strip{margin-top:26px;text-align:center;color:var(--mut);font-family:'Barlow Condensed';letter-spacing:.03em}
 .sib-strip a{color:var(--amber2);margin:0 8px;text-transform:uppercase;font-weight:600}
@@ -984,7 +1040,6 @@ APP_JS = r"""
     renderOpen(); buildCalc();
   }
   var saved; try{saved=localStorage.getItem('grz_lang');}catch(e){}
-  var nav=(navigator.language||'pl').slice(0,2);
   document.querySelectorAll('#lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-l'));});});
 
   /* ---------- theme ---------- */
@@ -1154,7 +1209,7 @@ APP_JS = r"""
   }
 
   /* ---------- init ---------- */
-  var start=saved||({pl:'pl',uk:'uk',ru:'ru',en:'en'}[nav]||'pl');
+  var start=saved||'pl';   // Polish is the default language
   buildCalc();
   setLang(start);
 })();

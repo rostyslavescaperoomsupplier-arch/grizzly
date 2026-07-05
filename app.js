@@ -16,7 +16,6 @@
     renderOpen(); buildCalc();
   }
   var saved; try{saved=localStorage.getItem('grz_lang');}catch(e){}
-  var nav=(navigator.language||'pl').slice(0,2);
   document.querySelectorAll('#lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-l'));});});
 
   /* ---------- theme ---------- */
@@ -186,7 +185,7 @@
   }
 
   /* ---------- init ---------- */
-  var start=saved||({pl:'pl',uk:'uk',ru:'ru',en:'en'}[nav]||'pl');
+  var start=saved||'pl';   // Polish is the default language
   buildCalc();
   setLang(start);
 })();

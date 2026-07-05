@@ -10,16 +10,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=3">
-<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="styles.css?v=5">
+<link rel="icon" href="assets/favicon.png?v=5">
 </head>
 <body>
 <script>var r=document.documentElement;r.classList.remove('no-js');r.classList.add('js');try{var th=localStorage.getItem('grz_theme');if(th)r.setAttribute('data-theme',th);}catch(e){}</script>
 <div id="progress"></div>
 <header class="site-head">
 <div class="wrap head-in">
-  <a class="brand" href="index.html"><svg class="paw" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="64" rx="24" ry="20"/><ellipse cx="24" cy="44" rx="8" ry="11"/><ellipse cx="41" cy="32" rx="8.5" ry="12.5"/><ellipse cx="59" cy="32" rx="8.5" ry="12.5"/><ellipse cx="76" cy="44" rx="8" ry="11"/></svg><span class="brand-word">GRIZZLY</span></a>
-  <nav class="nav"><a href="index.html#lokale"><span data-i18n="nav_lokale">Lokale</span></a><a href="index.html#uslugi"><span data-i18n="nav_uslugi">Cennik</span></a><a href="index.html#opinie"><span data-i18n="nav_opinie">Opinie</span></a><a href="index.html#galeria"><span data-i18n="nav_galeria">Galeria</span></a><a href="index.html#kontakt"><span data-i18n="nav_kontakt">Kontakt</span></a></nav>
+  <a class="brand" href="index.html"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"><span class="brand-word">GRIZZLY</span></a>
+  <nav class="nav"><a href="index.html#lokale"><span data-i18n="nav_lokale">Lokale</span></a><a href="index.html#barberzy"><span data-i18n="nav_barberzy">Barberzy</span></a><a href="index.html#uslugi"><span data-i18n="nav_uslugi">Cennik</span></a><a href="index.html#galeria"><span data-i18n="nav_galeria">Galeria</span></a><a href="index.html#kontakt"><span data-i18n="nav_kontakt">Kontakt</span></a></nav>
   <div class="head-right">
     <button class="theme-btn" id="themeBtn" aria-label="motyw">◐</button>
     <div class="lang" id="lang">
@@ -29,7 +29,7 @@
     <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
   </div>
 </div>
-<div class="drawer" id="drawer"><nav><a href="index.html#lokale"><span data-i18n="nav_lokale">Lokale</span></a><a href="index.html#uslugi"><span data-i18n="nav_uslugi">Cennik</span></a><a href="index.html#kalkulator"><span data-i18n="nav_kalk">Kalkulator</span></a><a href="index.html#opinie"><span data-i18n="nav_opinie">Opinie</span></a><a href="index.html#galeria"><span data-i18n="nav_galeria">Galeria</span></a><a href="index.html#faq"><span data-i18n="nav_faq">FAQ</span></a><a href="index.html#kontakt"><span data-i18n="nav_kontakt">Kontakt</span></a>
+<div class="drawer" id="drawer"><nav><a href="index.html#lokale"><span data-i18n="nav_lokale">Lokale</span></a><a href="index.html#barberzy"><span data-i18n="nav_barberzy">Barberzy</span></a><a href="index.html#uslugi"><span data-i18n="nav_uslugi">Cennik</span></a><a href="index.html#kalkulator"><span data-i18n="nav_kalk">Kalkulator</span></a><a href="index.html#opinie"><span data-i18n="nav_opinie">Opinie</span></a><a href="index.html#galeria"><span data-i18n="nav_galeria">Galeria</span></a><a href="index.html#faq"><span data-i18n="nav_faq">FAQ</span></a><a href="index.html#kontakt"><span data-i18n="nav_kontakt">Kontakt</span></a>
   <button class="btn btn-amber js-book"><span data-i18n="btn_book">Rezerwuj</span></button>
 </nav></div>
 </header>
@@ -40,10 +40,12 @@
 </div></div>
 <main>
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" style="background-image:url(assets/hero.jpg)"></div>
+  <div class="hero-shade"></div>
   <div class="wrap hero-in">
+    <h1 class="sr-only">Grizzly Barber Shop — Szczecin</h1>
     <p class="kicker" data-i18n="hero_kicker">Szczecin · 4 lokale</p>
-    <h1 class="hero-title">GRIZZLY BARBER SHOP</h1>
+    <img class="hero-logo" src="assets/logo.png" alt="Grizzly Barber Shop">
     <p class="hero-sub" data-i18n="hero_sub">Męski fach, niedźwiedzia moc. Cztery lokale w Szczecinie — jedno rzemiosło.</p>
     <div class="hero-cta">
       <button class="btn btn-amber btn-lg js-book" data-i18n="hero_cta1">Rezerwuj wizytę</button>
@@ -63,37 +65,65 @@
     <div class="sec-head reveal"><h2 data-i18n="lokale_title">Nasze lokale</h2><p data-i18n="lokale_sub">Wybierz najbliższy Grizzly w Szczecinie.</p></div>
     <div class="loc-grid"><a class="loc-card reveal" data-slug="piastow" href="lokal-piastow.html">
   <span class="lc-flag">★</span><span class="open-badge" data-open="piastow"></span>
-  <h3>Piastów</h3>
-  <p class="lc-addr">aleja Piastów 10/1, 70-331 Szczecin</p>
-  <span class="lc-rate"><span class="stars">★</span> <b>4.9</b> · 1303 <span data-i18n="reviews_word">opinii</span></span>
-  <span class="lc-dist" data-dist="piastow"></span>
-  <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+  <div class="lc-img" style="background-image:url(assets/loc/piastow.jpg)"></div>
+  <div class="lc-body">
+    <h3>Piastów</h3>
+    <p class="lc-addr">aleja Piastów 10/1, 70-331 Szczecin</p>
+    <span class="lc-rate"><span class="stars">★</span> <b>4.9</b> · 1303 <span data-i18n="reviews_word">opinii</span></span>
+    <span class="lc-dist" data-dist="piastow"></span>
+    <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+  </div>
 </a><a class="loc-card reveal" data-slug="niebuszewo" href="lokal-niebuszewo.html">
   <span class="open-badge" data-open="niebuszewo"></span>
-  <h3>Niebuszewo</h3>
-  <p class="lc-addr">Księcia Warcisława I 27b, 71-667 Szczecin</p>
-  <span class="lc-rate"><span class="stars">★</span> <b>5.0</b> · 655 <span data-i18n="reviews_word">opinii</span></span>
-  <span class="lc-dist" data-dist="niebuszewo"></span>
-  <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+  <div class="lc-img" style="background-image:url(assets/loc/niebuszewo.jpg)"></div>
+  <div class="lc-body">
+    <h3>Niebuszewo</h3>
+    <p class="lc-addr">Księcia Warcisława I 27b, 71-667 Szczecin</p>
+    <span class="lc-rate"><span class="stars">★</span> <b>5.0</b> · 655 <span data-i18n="reviews_word">opinii</span></span>
+    <span class="lc-dist" data-dist="niebuszewo"></span>
+    <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+  </div>
 </a><a class="loc-card reveal" data-slug="mickiewicza" href="lokal-mickiewicza.html">
   <span class="open-badge" data-open="mickiewicza"></span>
-  <h3>Mickiewicza</h3>
-  <p class="lc-addr">Adama Mickiewicza 36A, 70-385 Szczecin</p>
-  <span class="lc-rate"><span class="stars">★</span> <b>4.9</b> · 407 <span data-i18n="reviews_word">opinii</span></span>
-  <span class="lc-dist" data-dist="mickiewicza"></span>
-  <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+  <div class="lc-img" style="background-image:url(assets/loc/mickiewicza.jpg)"></div>
+  <div class="lc-body">
+    <h3>Mickiewicza</h3>
+    <p class="lc-addr">Adama Mickiewicza 36A, 70-385 Szczecin</p>
+    <span class="lc-rate"><span class="stars">★</span> <b>4.9</b> · 407 <span data-i18n="reviews_word">opinii</span></span>
+    <span class="lc-dist" data-dist="mickiewicza"></span>
+    <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+  </div>
 </a><a class="loc-card reveal" data-slug="gorkiego" href="lokal-gorkiego.html">
   <span class="open-badge" data-open="gorkiego"></span>
-  <h3>Gorkiego</h3>
-  <p class="lc-addr">Maksyma Gorkiego 5, 70-390 Szczecin</p>
-  <span class="lc-rate lc-new"><span data-i18n="new_loc">Nowy lokal</span></span>
-  <span class="lc-dist" data-dist="gorkiego"></span>
-  <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+  <div class="lc-img emblem"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div>
+  <div class="lc-body">
+    <h3>Gorkiego</h3>
+    <p class="lc-addr">Maksyma Gorkiego 5, 70-390 Szczecin</p>
+    <span class="lc-rate lc-new"><span data-i18n="new_loc">Nowy lokal</span></span>
+    <span class="lc-dist" data-dist="gorkiego"></span>
+    <span class="lc-go"><span data-i18n="view_loc">Zobacz lokal</span> →</span>
+  </div>
 </a></div>
   </div>
 </section>
 
-<section id="uslugi" class="sec sec-alt">
+<section id="barberzy" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 data-i18n="barberzy_title">Barberzy</h2><p data-i18n="barberzy_sub">Nasza ekipa w każdym lokalu — poznaj się przed wizytą.</p></div>
+    <div class="masters-loc">
+  <div class="ml-head reveal">Piastów <a href="lokal-piastow.html"><span data-i18n="view_loc">Zobacz lokal</span> →</a></div>
+  <div class="team-grid"><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Olka</h4><span>Junior Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Matvij</h4><span>Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Julia Blond</h4><span>Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Aliona</h4><span>Barber</span></div></div>
+</div><div class="masters-loc">
+  <div class="ml-head reveal">Niebuszewo <a href="lokal-niebuszewo.html"><span data-i18n="view_loc">Zobacz lokal</span> →</a></div>
+  <div class="team-grid"><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Magda</h4><span>Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Julia</h4><span>Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Danil</h4><span>Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Damian Bonson</h4><span>Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Michał</h4><span>Barber</span></div></div>
+</div><div class="masters-loc">
+  <div class="ml-head reveal">Mickiewicza <a href="lokal-mickiewicza.html"><span data-i18n="view_loc">Zobacz lokal</span> →</a></div>
+  <div class="team-grid"><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Anton</h4><span>Senior Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Julia</h4><span>Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Dimas</h4><span>Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Ira</h4><span>Junior Barber</span></div><div class="tm-card reveal"><div class="tm-ava"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"></div><h4>Dima</h4><span>Junior Barber</span></div></div>
+</div>
+  </div>
+</section>
+
+<section id="uslugi" class="sec">
   <div class="wrap">
     <div class="sec-head reveal"><h2 data-i18n="uslugi_title">Cennik</h2><p data-i18n="uslugi_sub">Ceny różnią się między lokalami — wybierz zakładkę.</p></div>
     <div class="tabs"><button class="tab on" data-tab="piastow">Piastów</button><button class="tab " data-tab="niebuszewo">Niebuszewo</button><button class="tab " data-tab="mickiewicza">Mickiewicza</button><button class="tab " data-tab="gorkiego">Gorkiego</button></div>
@@ -131,7 +161,7 @@
         <div class="val"><h4 data-i18n="onas_v3t">Cztery lokale</h4><p data-i18n="onas_v3d">Ten sam standard w całym Szczecinie.</p></div>
       </div>
     </div>
-    <div class="onas-emblem reveal"><svg class="paw" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="64" rx="24" ry="20"/><ellipse cx="24" cy="44" rx="8" ry="11"/><ellipse cx="41" cy="32" rx="8.5" ry="12.5"/><ellipse cx="59" cy="32" rx="8.5" ry="12.5"/><ellipse cx="76" cy="44" rx="8" ry="11"/></svg></div>
+    <div class="onas-emblem reveal"><img src="assets/about.jpg" alt="Grizzly Barber Shop — Szczecin" class="onas-photo"></div>
   </div>
 </section>
 
@@ -150,11 +180,7 @@
 <section id="galeria" class="sec sec-alt">
   <div class="wrap">
     <div class="sec-head reveal"><h2 data-i18n="galeria_title">Galeria</h2></div>
-    <div class="gallery-empty reveal">
-      <p data-i18n="galeria_empty">Zdjęcia realizacji zobaczysz na naszym Booksy i Instagramie.</p>
-      <div class="ge-btns"><a class="btn btn-ghost" href="https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin" target="_blank" rel="noopener">Booksy</a>
-      <a class="btn btn-ghost" href="https://www.instagram.com/grizzly_gorkiego_/" target="_blank" rel="noopener">Instagram</a></div>
-    </div>
+    <div class="masonry"><img class="lb" loading="lazy" src="assets/gallery/01.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/02.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/03.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/04.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/05.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/06.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/07.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/08.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/09.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/10.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/11.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/12.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/13.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/14.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/15.jpg" alt="Grizzly"><img class="lb" loading="lazy" src="assets/gallery/16.jpg" alt="Grizzly"></div>
     <div class="ba-wrap reveal">
       <h3 class="ba-title" data-i18n="ba_title">Efekt przed / po</h3>
       <div class="ba" id="ba">
@@ -205,7 +231,7 @@
 <footer class="site-foot">
 <div class="wrap foot-in">
   <div>
-    <a class="brand" href="index.html"><svg class="paw" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="64" rx="24" ry="20"/><ellipse cx="24" cy="44" rx="8" ry="11"/><ellipse cx="41" cy="32" rx="8.5" ry="12.5"/><ellipse cx="59" cy="32" rx="8.5" ry="12.5"/><ellipse cx="76" cy="44" rx="8" ry="11"/></svg><span class="brand-word">GRIZZLY</span></a>
+    <a class="brand" href="index.html"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"><span class="brand-word">GRIZZLY</span></a>
     <p class="foot-tag"><span data-i18n="footer_tag">Męski fach, niedźwiedzia moc.</span></p>
   </div>
   <div class="foot-locs"><a href="lokal-piastow.html">Piastów</a> · <a href="lokal-niebuszewo.html">Niebuszewo</a> · <a href="lokal-mickiewicza.html">Mickiewicza</a> · <a href="lokal-gorkiego.html">Gorkiego</a></div>
@@ -234,6 +260,6 @@
 <div class="mobar"><button class="btn btn-amber js-book" style="width:100%"><span data-i18n="btn_book">Rezerwuj</span></button></div>
 <div id="lightbox" class="lightbox"><button class="lb-close" aria-label="close">×</button><button class="lb-prev" aria-label="prev">‹</button><img id="lbImg" alt=""><button class="lb-next" aria-label="next">›</button></div>
 <button id="toTop" aria-label="top">↑</button>
-<script src="translations.js?v=3"></script>
-<script src="app.js?v=3"></script>
+<script src="translations.js?v=5"></script>
+<script src="app.js?v=5"></script>
 </body></html>
