@@ -8,7 +8,7 @@ import json, os, re, glob, html, unicodedata
 from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VER = "16"  # cache-bust; bump after CSS/JS changes
+VER = "17"  # cache-bust; bump after CSS/JS changes
 
 BOOKSY_MAIN = "https://booksy.com/pl-pl/115246_grizzly-barber-shop_barber-shop_18078_szczecin"
 INSTAGRAM   = "https://www.instagram.com/grizzly_gorkiego_/"
@@ -386,9 +386,9 @@ def _nav_links(rel, keys):
 
 def header(rel=""):
     top = [("lokale","nav_lokale"),("barberzy","nav_barberzy"),("uslugi","nav_uslugi"),
-           ("konstruktor","nav_konstr"),("galeria","nav_galeria"),("kontakt","nav_kontakt")]
+           ("galeria","nav_galeria"),("kontakt","nav_kontakt")]
     full = [("lokale","nav_lokale"),("barberzy","nav_barberzy"),("uslugi","nav_uslugi"),("kalkulator","nav_kalk"),
-            ("konstruktor","nav_konstr"),("opinie","nav_opinie"),("galeria","nav_galeria"),
+            ("opinie","nav_opinie"),("galeria","nav_galeria"),
             ("bony","nav_bony"),("faq","nav_faq"),("kontakt","nav_kontakt")]
     return f"""<header class="site-head">
 <div class="wrap head-in">
@@ -431,7 +431,6 @@ def footer(rel=""):
 <button id="toTop" aria-label="top">↑</button>
 <script src="{rel}translations.js?v={VER}"></script>
 <script src="{rel}app.js?v={VER}"></script>
-<script type="module" src="{rel}ar.js?v={VER}"></script>
 </body></html>"""
 
 def booking_modal():
@@ -624,29 +623,6 @@ def build_index():
         <div class="calc-sum"><span data-i18n="kalk_total">{ta('kalk_total')}</span><b id="calcTotal">0 zł</b></div>
         <div class="calc-sum"><span data-i18n="kalk_time">{ta('kalk_time')}</span><b id="calcTime">0 min</b></div>
         <a id="calcBook" class="btn btn-amber" href="#" target="_blank" rel="noopener" data-i18n="kalk_book">{ta('kalk_book')}</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="konstruktor" class="sec sec-alt">
-  <div class="wrap">
-    <div class="sec-head reveal"><h2 data-i18n="konstr_title">{ta('konstr_title')}</h2><p data-i18n="konstr_sub">{ta('konstr_sub')}</p></div>
-    <div class="konstr reveal">
-      <div class="konstr-form" id="konstrForm"></div>
-      <div class="konstr-result">
-        <div class="kr-face" id="krStage"><video id="krVideo" playsinline autoplay muted></video><img id="krImg" alt="Grizzly look"><div class="kr-overlay" id="krOverlay"><svg id="krHair" viewBox="0 0 240 200" preserveAspectRatio="xMidYMid meet"></svg></div><div class="kr-hint" id="krHint"><svg class="cam-ic" viewBox="0 0 24 24"><path d="M3 8.5a2 2 0 0 1 2-2h2l1.4-2h7.2L19 6.5h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.6"/></svg><button class="btn btn-amber" id="krCamOn" type="button">Przymierz na kamerze</button><span>albo zobacz gotowe zdjęcie niżej</span></div><div class="kr-ctrl" id="krCtrl"><input type="range" id="krScale" min="45" max="150" value="82" aria-label="rozmiar"><button id="krSnap" type="button" title="Zdjęcie">⬇</button><button id="krCamOff" type="button" title="Wyłącz">✕</button></div></div>
-        <div class="kr-body">
-          <span class="kr-kicker" data-i18n="konstr_look">{ta('konstr_look')}</span>
-          <h3 id="krTitle"></h3>
-          <p id="krAdvice"></p>
-          <div class="kr-serv-lbl" data-i18n="konstr_serv">{ta('konstr_serv')}</div>
-          <div id="krServices" class="kr-services"></div>
-          <div class="kr-cta">
-            <div class="kr-price"><span data-i18n="konstr_from">{ta('konstr_from')}</span><b id="krPrice">—</b></div>
-            <button class="btn btn-amber js-book">{t('btn_book')}</button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -1665,7 +1641,6 @@ def w(name, content):
 def main():
     w("styles.css", CSS)
     w("app.js", APP_JS)
-    w("ar.js", AR_JS)
     w("favicon.svg", FAVICON)
     w("translations.js", "window.I18N=" + json.dumps(I18N, ensure_ascii=False) +
       ";\nwindow.GRZ=" + json.dumps(js_data(), ensure_ascii=False) + ";")

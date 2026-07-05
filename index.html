@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=16">
-<link rel="icon" href="assets/favicon.png?v=16">
+<link rel="stylesheet" href="styles.css?v=17">
+<link rel="icon" href="assets/favicon.png?v=17">
 </head>
 <body>
 <script>var r=document.documentElement;r.classList.remove('no-js');r.classList.add('js');try{var th=localStorage.getItem('grz_theme');if(th)r.setAttribute('data-theme',th);}catch(e){}</script>
@@ -19,7 +19,7 @@
 <header class="site-head">
 <div class="wrap head-in">
   <a class="brand" href="index.html"><img class="emb" src="assets/emblem.png" alt="Grizzly Barber Shop"><span class="brand-word">GRIZZLY</span></a>
-  <nav class="nav"><a href="index.html#lokale"><span data-i18n="nav_lokale">Lokale</span></a><a href="index.html#barberzy"><span data-i18n="nav_barberzy">Barberzy</span></a><a href="index.html#uslugi"><span data-i18n="nav_uslugi">Cennik</span></a><a href="index.html#konstruktor"><span data-i18n="nav_konstr">Konstruktor</span></a><a href="index.html#galeria"><span data-i18n="nav_galeria">Galeria</span></a><a href="index.html#kontakt"><span data-i18n="nav_kontakt">Kontakt</span></a></nav>
+  <nav class="nav"><a href="index.html#lokale"><span data-i18n="nav_lokale">Lokale</span></a><a href="index.html#barberzy"><span data-i18n="nav_barberzy">Barberzy</span></a><a href="index.html#uslugi"><span data-i18n="nav_uslugi">Cennik</span></a><a href="index.html#galeria"><span data-i18n="nav_galeria">Galeria</span></a><a href="index.html#kontakt"><span data-i18n="nav_kontakt">Kontakt</span></a></nav>
   <div class="head-right">
     <button class="theme-btn" id="themeBtn" aria-label="motyw">◐</button>
     <div class="lang" id="lang">
@@ -29,7 +29,7 @@
     <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
   </div>
 </div>
-<div class="drawer" id="drawer"><nav><a href="index.html#lokale"><span data-i18n="nav_lokale">Lokale</span></a><a href="index.html#barberzy"><span data-i18n="nav_barberzy">Barberzy</span></a><a href="index.html#uslugi"><span data-i18n="nav_uslugi">Cennik</span></a><a href="index.html#kalkulator"><span data-i18n="nav_kalk">Kalkulator</span></a><a href="index.html#konstruktor"><span data-i18n="nav_konstr">Konstruktor</span></a><a href="index.html#opinie"><span data-i18n="nav_opinie">Opinie</span></a><a href="index.html#galeria"><span data-i18n="nav_galeria">Galeria</span></a><a href="index.html#bony"><span data-i18n="nav_bony">Bony</span></a><a href="index.html#faq"><span data-i18n="nav_faq">FAQ</span></a><a href="index.html#kontakt"><span data-i18n="nav_kontakt">Kontakt</span></a>
+<div class="drawer" id="drawer"><nav><a href="index.html#lokale"><span data-i18n="nav_lokale">Lokale</span></a><a href="index.html#barberzy"><span data-i18n="nav_barberzy">Barberzy</span></a><a href="index.html#uslugi"><span data-i18n="nav_uslugi">Cennik</span></a><a href="index.html#kalkulator"><span data-i18n="nav_kalk">Kalkulator</span></a><a href="index.html#opinie"><span data-i18n="nav_opinie">Opinie</span></a><a href="index.html#galeria"><span data-i18n="nav_galeria">Galeria</span></a><a href="index.html#bony"><span data-i18n="nav_bony">Bony</span></a><a href="index.html#faq"><span data-i18n="nav_faq">FAQ</span></a><a href="index.html#kontakt"><span data-i18n="nav_kontakt">Kontakt</span></a>
   <button class="btn btn-amber js-book"><span data-i18n="btn_book">Rezerwuj</span></button>
 </nav></div>
 </header>
@@ -147,29 +147,6 @@
         <div class="calc-sum"><span data-i18n="kalk_total">Razem</span><b id="calcTotal">0 zł</b></div>
         <div class="calc-sum"><span data-i18n="kalk_time">Czas</span><b id="calcTime">0 min</b></div>
         <a id="calcBook" class="btn btn-amber" href="#" target="_blank" rel="noopener" data-i18n="kalk_book">Rezerwuj w tym lokalu</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="konstruktor" class="sec sec-alt">
-  <div class="wrap">
-    <div class="sec-head reveal"><h2 data-i18n="konstr_title">Konstruktor fryzury</h2><p data-i18n="konstr_sub">Przymierz fryzurę i kolor na żywo w kamerze — potem zarezerwuj w Grizzly.</p></div>
-    <div class="konstr reveal">
-      <div class="konstr-form" id="konstrForm"></div>
-      <div class="konstr-result">
-        <div class="kr-face" id="krStage"><video id="krVideo" playsinline autoplay muted></video><img id="krImg" alt="Grizzly look"><div class="kr-overlay" id="krOverlay"><svg id="krHair" viewBox="0 0 240 200" preserveAspectRatio="xMidYMid meet"></svg></div><div class="kr-hint" id="krHint"><svg class="cam-ic" viewBox="0 0 24 24"><path d="M3 8.5a2 2 0 0 1 2-2h2l1.4-2h7.2L19 6.5h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.6"/></svg><button class="btn btn-amber" id="krCamOn" type="button">Przymierz na kamerze</button><span>albo zobacz gotowe zdjęcie niżej</span></div><div class="kr-ctrl" id="krCtrl"><input type="range" id="krScale" min="45" max="150" value="82" aria-label="rozmiar"><button id="krSnap" type="button" title="Zdjęcie">⬇</button><button id="krCamOff" type="button" title="Wyłącz">✕</button></div></div>
-        <div class="kr-body">
-          <span class="kr-kicker" data-i18n="konstr_look">Twój look</span>
-          <h3 id="krTitle"></h3>
-          <p id="krAdvice"></p>
-          <div class="kr-serv-lbl" data-i18n="konstr_serv">Proponowane usługi</div>
-          <div id="krServices" class="kr-services"></div>
-          <div class="kr-cta">
-            <div class="kr-price"><span data-i18n="konstr_from">Orientacyjnie od</span><b id="krPrice">—</b></div>
-            <button class="btn btn-amber js-book"><span data-i18n="btn_book">Rezerwuj</span></button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -300,7 +277,6 @@
 <div class="mobar"><button class="btn btn-amber js-book" style="width:100%"><span data-i18n="btn_book">Rezerwuj</span></button></div>
 <div id="lightbox" class="lightbox"><button class="lb-close" aria-label="close">×</button><button class="lb-prev" aria-label="prev">‹</button><img id="lbImg" alt=""><button class="lb-next" aria-label="next">›</button></div>
 <button id="toTop" aria-label="top">↑</button>
-<script src="translations.js?v=16"></script>
-<script src="app.js?v=16"></script>
-<script type="module" src="ar.js?v=16"></script>
+<script src="translations.js?v=17"></script>
+<script src="app.js?v=17"></script>
 </body></html>
